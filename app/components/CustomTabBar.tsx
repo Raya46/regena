@@ -69,10 +69,9 @@ function CustomTabBar({ state, descriptors, navigation }: TabBarProps) {
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={[styles.tab, isFocused && styles.tabFocused]}
+            style={styles.tab}
           >
             <Ionicons
               name={iconName}
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
   tabBar: {
     flexDirection: "row",
     height: 70,
-    backgroundColor: "#004D40",
+    backgroundColor: "#042F2E",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     overflow: "hidden",
@@ -102,9 +101,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  tabFocused: {
-    backgroundColor: "#00796B",
   },
   label: {
     color: "#9E9E9E",
