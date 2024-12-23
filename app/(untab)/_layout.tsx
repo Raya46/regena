@@ -5,6 +5,7 @@ export default function UntabLayout() {
     <Stack>
       <Stack.Screen name="CreateJournal" options={{ headerShown: false }} />
       <Stack.Screen name="CreateAlign" options={{ headerShown: false }} />
+      <Stack.Screen name="DetailMeals" options={{ headerShown: false }} />
     </Stack>
   );
 }
