@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const DetailMeals = () => {
   const recipe = {
@@ -35,7 +36,12 @@ const DetailMeals = () => {
     >
       {/* Header */}
       <View style={styles.header}>
-        <Ionicons name="arrow-back" size={24} color="#000" />
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="#000"
+          onPress={() => router.back()}
+        />
         <Text style={styles.headerTitle}>Recipe Details</Text>
         <Ionicons name="bookmark-outline" size={24} color="#000" />
       </View>

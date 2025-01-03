@@ -11,7 +11,7 @@ import {
   Swipeable,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
-import { router } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 const HomePage = () => {
   const [activeSection, setActiveSection] = useState("progress");
@@ -25,6 +25,7 @@ const HomePage = () => {
         style={styles.resetButton}
         onPress={() => setActiveSection("reset")}
       >
+        <Ionicons name="time-outline" size={30} style={{ color: "#fff" }} />
         <Text style={styles.resetButtonText}>RESET</Text>
       </TouchableOpacity>
     </View>
@@ -37,38 +38,132 @@ const HomePage = () => {
       </Text>
       <View style={styles.progressBars}>
         <View
-          style={[
-            styles.progressBar,
-            { backgroundColor: "#38B2AC", width: "100%" },
-          ]}
+          style={{
+            flexDirection: "row",
+            backgroundColor: "#0D9488",
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 50,
+            borderTopLeftRadius: 10,
+            borderBottomLeftRadius: 10,
+            marginBottom: 10,
+          }}
         >
-          <Text style={styles.progressLabel}>1 Day</Text>
+          <View
+            style={[
+              styles.progressBar,
+              {
+                width: "20%",
+                backgroundColor: "#2DD4BF",
+              },
+            ]}
+          >
+            <Text style={styles.progressLabel}>1 Day</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#0D9488",
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 10,
+              borderBottomLeftRadius: 10,
+            }}
+          ></View>
         </View>
         <View
-          style={[
-            styles.progressBar,
-            { backgroundColor: "#4FD1C5", width: "80%" },
-          ]}
+          style={{
+            flexDirection: "row",
+            backgroundColor: "#0D9488",
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 50,
+            borderTopLeftRadius: 10,
+            borderBottomLeftRadius: 10,
+            marginBottom: 10,
+          }}
         >
-          <Text style={styles.progressLabel}>18 Hours</Text>
+          <View
+            style={[
+              styles.progressBar,
+              {
+                width: "70%",
+                backgroundColor: "#22D3EE",
+              },
+            ]}
+          >
+            <Text style={styles.progressLabel}>18 Hours</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#0D9488",
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 10,
+              borderBottomLeftRadius: 10,
+            }}
+          ></View>
         </View>
         <View
-          style={[
-            styles.progressBar,
-            { backgroundColor: "#81E6D9", width: "70%" },
-          ]}
+          style={{
+            flexDirection: "row",
+            backgroundColor: "#0D9488",
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 50,
+            borderTopLeftRadius: 10,
+            borderBottomLeftRadius: 10,
+            marginBottom: 10,
+          }}
         >
-          <Text style={styles.progressLabel}>17 Minutes</Text>
+          <View
+            style={[
+              styles.progressBar,
+              {
+                width: "30%",
+                backgroundColor: "#818CF8",
+              },
+            ]}
+          >
+            <Text style={styles.progressLabel}>17 Minutes</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#0D9488",
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 10,
+              borderBottomLeftRadius: 10,
+            }}
+          ></View>
         </View>
         <View
-          style={[
-            styles.progressBar,
-            { backgroundColor: "#B2F5EA", width: "50%" },
-          ]}
+          style={{
+            flexDirection: "row",
+            backgroundColor: "#0D9488",
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 50,
+            borderTopLeftRadius: 10,
+            borderBottomLeftRadius: 10,
+            marginBottom: 10,
+          }}
         >
-          <Text style={[styles.progressLabel, { color: "#234E52" }]}>
-            48 Seconds
-          </Text>
+          <View
+            style={[
+              styles.progressBar,
+              {
+                width: "80%",
+                backgroundColor: "#A78BFA",
+              },
+            ]}
+          >
+            <Text style={styles.progressLabel}>48 Seconds</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#0D9488",
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 50,
+              borderTopLeftRadius: 10,
+              borderBottomLeftRadius: 10,
+            }}
+          ></View>
         </View>
       </View>
     </View>
@@ -78,6 +173,11 @@ const HomePage = () => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
         <View style={styles.headerContainer}>
+          <Ionicons
+            name="enter"
+            size={24}
+            style={{ alignSelf: "center", color: "#14B8A6" }}
+          />
           <Text style={styles.headerText}>
             My body is worthy of love just as it is.{"\n"}I am beautiful in
             every shape and size.
@@ -113,8 +213,6 @@ const HomePage = () => {
         </View>
 
         <View style={styles.mealsContainer}>
-          <Text style={styles.mealsTitle}>Meals</Text>
-
           <View style={styles.mealItem}>
             <Text style={styles.mealCategory}>🍳 Breakfast</Text>
             <View style={styles.mealCard}>
@@ -122,12 +220,23 @@ const HomePage = () => {
                 source={{ uri: "https://via.placeholder.com/150" }}
                 style={styles.mealImage}
               />
-              <Text style={styles.mealName}>
-                Gentle Oats with Honey and Berries
-              </Text>
-              <Text style={styles.mealDescription}>
-                A soft and nourishing way to start the day
-              </Text>
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={styles.mealName}>
+                  Gentle Oats with Honey and Berries
+                </Text>
+                <Text style={styles.mealDescription}>
+                  A soft and nourishing way to start the day
+                </Text>
+                <Ionicons
+                  name="bookmark-outline"
+                  size={24}
+                  style={{
+                    alignSelf: "flex-end",
+                    color: "gray",
+                    marginTop: 10,
+                  }}
+                />
+              </View>
             </View>
           </View>
 
@@ -139,21 +248,26 @@ const HomePage = () => {
                 source={{ uri: "https://via.placeholder.com/150" }}
                 style={styles.mealImage}
               />
-              <Text style={styles.mealName}>Grilled Chicken Salad</Text>
-              <Text style={styles.mealDescription}>
-                A balanced meal with fresh greens and lean protein
-              </Text>
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={styles.mealName}>
+                  Gentle Oats with Honey and Berries
+                </Text>
+                <Text style={styles.mealDescription}>
+                  A soft and nourishing way to start the day
+                </Text>
+                <Ionicons
+                  name="bookmark-outline"
+                  size={24}
+                  style={{
+                    alignSelf: "flex-end",
+                    color: "gray",
+                    marginTop: 10,
+                  }}
+                />
+              </View>
             </View>
           </View>
         </View>
-
-        {/* Logout Button */}
-        <TouchableOpacity
-          style={styles.logoutButton}
-          onPress={() => router.replace("/")}
-        >
-          <Text style={styles.logoutButtonText}>Logout</Text>
-        </TouchableOpacity>
       </ScrollView>
     </GestureHandlerRootView>
   );
@@ -162,23 +276,26 @@ const HomePage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F1F5F9",
     paddingHorizontal: 16,
     paddingTop: 24,
   },
   headerContainer: {
     marginBottom: 16,
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 10,
   },
   headerText: {
     textAlign: "center",
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#22543D",
+    color: "#14B8A6",
   },
   indicatorContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 8,
+    marginTop: 5,
+    marginBottom: 10,
   },
   indicator: {
     width: 10,
@@ -213,16 +330,19 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   progressBar: {
-    height: 16,
-    borderRadius: 4,
+    height: "100%",
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 50,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
     marginBottom: 8,
+    padding: 20,
     justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: "#2DD4BF",
   },
   progressLabel: {
     color: "#ffffff",
     fontSize: 12,
-    fontWeight: "600",
   },
   resetContainer: {
     backgroundColor: "#F0FFF4",
@@ -241,9 +361,8 @@ const styles = StyleSheet.create({
   },
   resetButton: {
     backgroundColor: "#38B2AC",
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    padding: 80,
+    borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -255,19 +374,17 @@ const styles = StyleSheet.create({
   mealsContainer: {
     marginBottom: 24,
   },
-  mealsTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#2D3748",
-    marginBottom: 16,
-  },
   mealItem: {
     marginBottom: 16,
   },
   mealCategory: {
     fontSize: 14,
-    color: "#718096",
+    color: "black",
     marginBottom: 8,
+    backgroundColor: "#E0F2FE",
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    padding: 8,
   },
   mealCard: {
     backgroundColor: "#EDF2F7",
@@ -277,10 +394,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    flexDirection: "row",
   },
   mealImage: {
     width: "100%",
-    height: 100,
+    height: "100%",
+    flex: 1,
     borderRadius: 8,
     marginBottom: 8,
   },
@@ -289,21 +408,12 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#2D3748",
     marginBottom: 4,
+    flex: 2,
   },
   mealDescription: {
     fontSize: 14,
     color: "#718096",
-  },
-  logoutButton: {
-    backgroundColor: "#E53E3E",
-    padding: 16,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  logoutButtonText: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "600",
+    flex: 2,
   },
 });
 
