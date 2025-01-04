@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ImageBackground,
   ScrollView,
+  TouchableOpacity,
+  Animated,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -14,7 +16,8 @@ const DetailMeals = () => {
     title: "Energizing Morning Smoothie",
     description:
       "A refreshing smoothie to kickstart your day with natural energy.",
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://cdn.loveandlemons.com/wp-content/uploads/2023/05/mango-smoothie.jpg",
     ingredients: [
       "1 banana",
       "1 cup almond milk",
@@ -28,6 +31,9 @@ const DetailMeals = () => {
       "Pour into a glass and enjoy!",
     ],
   };
+
+  const [ingredientsExpanded, setIngredientsExpanded] = useState(false);
+  const [stepsExpanded, setStepsExpanded] = useState(false);
 
   return (
     <ScrollView
@@ -62,34 +68,50 @@ const DetailMeals = () => {
       </View>
       <View style={{ marginVertical: 10 }}></View>
 
-      {/* Ingredients */}
+      {/* Ingredients Section */}
       <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Ionicons name="fast-food-outline" size={20} color="#000" />
-          <Text style={styles.sectionTitle}>Ingredients</Text>
-        </View>
-        <View style={styles.sectionContent}>
-          {recipe.ingredients.map((ingredient, index) => (
-            <Text key={index} style={styles.listItem}>
-              • {ingredient}
-            </Text>
-          ))}
-        </View>
+        <TouchableOpacity
+          style={styles.sectionHeader}
+          onPress={() => setIngredientsExpanded((prev) => !prev)}
+        >
+          <View style={{ flexDirection: "row", gap: 6 }}>
+            <Ionicons name="fast-food-outline" size={20} color="#000" />
+            <Text style={styles.sectionTitle}>Ingredients</Text>
+          </View>
+          <Ionicons name="chevron-down" size={20} color="#000" />
+        </TouchableOpacity>
+        {ingredientsExpanded && (
+          <View style={styles.sectionContent}>
+            {recipe.ingredients.map((ingredient, index) => (
+              <Text key={index} style={styles.listItem}>
+                • {ingredient}
+              </Text>
+            ))}
+          </View>
+        )}
       </View>
 
-      {/* Steps */}
+      {/* Steps Section */}
       <View style={styles.section}>
-        <View style={styles.sectionHeader}>
-          <Ionicons name="restaurant-outline" size={20} color="#000" />
-          <Text style={styles.sectionTitle}>How to Make It</Text>
-        </View>
-        <View style={styles.sectionContent}>
-          {recipe.steps.map((step, index) => (
-            <Text key={index} style={styles.listItem}>
-              {index + 1}. {step}
-            </Text>
-          ))}
-        </View>
+        <TouchableOpacity
+          style={styles.sectionHeader}
+          onPress={() => setStepsExpanded((prev) => !prev)}
+        >
+          <View style={{ flexDirection: "row", gap: 6 }}>
+            <Ionicons name="restaurant-outline" size={20} color="#000" />
+            <Text style={styles.sectionTitle}>Ingredients</Text>
+          </View>
+          <Ionicons name="chevron-down" size={20} color="#000" />
+        </TouchableOpacity>
+        {stepsExpanded && (
+          <View style={styles.sectionContent}>
+            {recipe.steps.map((step, index) => (
+              <Text key={index} style={styles.listItem}>
+                {index + 1}. {step}
+              </Text>
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -160,8 +182,8 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     flexDirection: "row",
-    alignItems: "center",
     marginBottom: 10,
+    justifyContent: "space-between",
   },
   sectionTitle: {
     fontSize: 16,

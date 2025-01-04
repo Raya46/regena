@@ -174,7 +174,7 @@ const HomePage = () => {
       <ScrollView style={styles.container}>
         <View style={styles.headerContainer}>
           <Ionicons
-            name="enter"
+            name="happy-outline"
             size={24}
             style={{ alignSelf: "center", color: "#14B8A6" }}
           />
@@ -242,7 +242,7 @@ const HomePage = () => {
 
           {/* Lunch */}
           <View style={styles.mealItem}>
-            <Text style={styles.mealCategory}>🥗 Lunch</Text>
+            <Text style={[styles.mealCategory, styles.bgColor]}>🥗 Lunch</Text>
             <View style={styles.mealCard}>
               <Image
                 source={{ uri: "https://via.placeholder.com/150" }}
@@ -377,17 +377,19 @@ const styles = StyleSheet.create({
   mealItem: {
     marginBottom: 16,
   },
+  bgColor: {
+    backgroundColor: "#FEF9C3",
+  },
   mealCategory: {
     fontSize: 14,
     color: "black",
-    marginBottom: 8,
     backgroundColor: "#E0F2FE",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     padding: 8,
   },
   mealCard: {
-    backgroundColor: "#EDF2F7",
+    backgroundColor: "#FFFFFF",
     padding: 16,
     borderRadius: 8,
     shadowColor: "#000",

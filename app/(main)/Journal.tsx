@@ -14,7 +14,9 @@ const JournalPage = () => {
     <View style={styles.container}>
       {/* Header */}
       <Image
-        source={{ uri: "https://via.placeholder.com/150" }}
+        source={{
+          uri: "https://s3-alpha-sig.figma.com/img/fc27/a3a5/26b969b0a4bbce94efdb3f9f0d4eb42d?Expires=1736726400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=GOyUoM76HLmW3mVO7S-e0R0zVSzPYLiCp0Trydq6Sd2l~CentA~eDeuZ7aeNUwfcYcsCO3rT5WeGr-8hYTa2AgvtpxRPijFQiu0-874jI2l8QSZdu6E2GDR7LBD0lb2JtTbgeAVRem0QyBPEDXPHZ~NZsvOp0Zoat30fnZtp3WM2mDsaWVQSgnTvWI5ves0jyfq5gw00pNX2LRID4Rl0066DfydTW-rAxDX-lYcpF3~eu4JW~Ng~gtkHxu0VjzSwqcmFo9NQKgjG6JDo~6XgsPUbg2rLGvlkCttxwPNAJ60bLY6y0BUax3ylqSPAI0x50LifZI2orYH9BYafDvVyrQ__",
+        }}
         style={{
           width: "100%",
           height: 100,
@@ -34,26 +36,32 @@ const JournalPage = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.dateSelector}
       >
-        {["17 SUN", "18 MON", "19 TUE", "20 WED", "21 THU"].map(
-          (date, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.dateButton,
-                index === 0 ? styles.selectedDateButton : null,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.dateText,
-                  index === 0 ? styles.selectedDateText : null,
-                ]}
-              >
-                {date}
-              </Text>
-            </TouchableOpacity>
-          )
-        )}
+        <TouchableOpacity style={[styles.dateButton]}>
+          <Text style={[styles.dateText, styles.tanggalBold]}>17</Text>
+          <Text style={[styles.dateText]}>SUN</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.dateButton, styles.selectedDateButton]}
+        >
+          <Text style={[styles.selectedDateText, styles.tanggalBold]}>18</Text>
+          <Text style={[styles.selectedDateText]}>MON</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.dateButton]}>
+          <Text style={[styles.dateText, styles.tanggalBold]}>19</Text>
+          <Text style={[styles.dateText]}>TUE</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.dateButton]}>
+          <Text style={[styles.dateText, styles.tanggalBold]}>20</Text>
+          <Text style={[styles.dateText]}>WED</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.dateButton]}>
+          <Text style={[styles.dateText, styles.tanggalBold]}>21</Text>
+          <Text style={[styles.dateText]}>THU</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.dateButton]}>
+          <Text style={[styles.dateText, styles.tanggalBold]}>22</Text>
+          <Text style={[styles.dateText]}>FRI</Text>
+        </TouchableOpacity>
       </ScrollView>
 
       {/* Journal Input */}
@@ -102,20 +110,29 @@ const styles = StyleSheet.create({
     flex: 0,
   },
   dateButton: {
-    padding: 15,
-    borderRadius: 25,
+    padding: 12,
+    borderRadius: 50,
     backgroundColor: "#F0FDFA",
     marginHorizontal: 5,
+    justifyContent: "center",
+    gap: 6,
+    width: 60,
+    height: 80,
   },
   selectedDateButton: {
     backgroundColor: "#14B8A6",
   },
   dateText: {
     color: "#555",
-    fontWeight: "bold",
+    textAlign: "center",
   },
   selectedDateText: {
     color: "#FFF",
+    textAlign: "center",
+  },
+  tanggalBold: {
+    fontWeight: "bold",
+    fontSize: 20,
   },
   journalInput: {
     backgroundColor: "#FFF",

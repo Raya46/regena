@@ -18,6 +18,7 @@ const MealsPage = () => {
       category: "Breakfast",
       title: "Gentle Oats with Honey and Berries",
       description: "A soft and nourishing way to start the day",
+      bgColor: "#E0F2FE",
       image: "https://via.placeholder.com/150",
     },
     {
@@ -25,6 +26,7 @@ const MealsPage = () => {
       category: "Lunch",
       title: "Grilled Chicken Salad",
       description: "A balanced meal with fresh greens and lean protein",
+      bgColor: "#FEF9C3",
       image: "https://via.placeholder.com/150",
     },
     {
@@ -32,6 +34,7 @@ const MealsPage = () => {
       category: "Snack",
       title: "Trail Mix with Dark Chocolate",
       description: "A snack to fuel you through the day",
+      bgColor: "#ECFCCB",
       image: "https://via.placeholder.com/150",
     },
     {
@@ -39,6 +42,7 @@ const MealsPage = () => {
       category: "Dinner",
       title: "Cozy Sweet Potato Curry",
       description: "A creamy, warm dish for relaxing evenings",
+      bgColor: "#E0E7FF",
       image: "https://via.placeholder.com/150",
     },
   ];
@@ -49,11 +53,11 @@ const MealsPage = () => {
         style={{
           borderTopRightRadius: 12,
           borderTopLeftRadius: 12,
-          backgroundColor: "#E0F2FE",
+          backgroundColor: item.bgColor,
           padding: 12,
         }}
       >
-        <Text style={{ fontWeight: "bold" }}>BreakFast</Text>
+        <Text style={{ fontWeight: "bold" }}>{item.category}</Text>
       </View>
       <TouchableOpacity
         style={styles.card}
@@ -79,6 +83,32 @@ const MealsPage = () => {
         <Text style={styles.subtitle}>
           Enjoy meals to help rebuild your strength and confidence.
         </Text>
+      </View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          backgroundColor: "#fff",
+          borderRadius: 10,
+          marginBottom: 24,
+        }}
+      >
+        <View style={{ flexDirection: "row", gap: 8, padding: 12, flex: 3 }}>
+          <Text>Select Category</Text>
+          <Ionicons name="chevron-down" size={20} />
+        </View>
+        <View
+          style={{
+            backgroundColor: "#14B8A6",
+            padding: 12,
+            borderTopRightRadius: 10,
+            borderBottomRightRadius: 10,
+            flex: 1,
+          }}
+        >
+          <Text style={{ color: "#fff", textAlign: "center" }}>Generate</Text>
+        </View>
       </View>
 
       {/* Featured Meal */}

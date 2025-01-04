@@ -23,15 +23,9 @@ function getTabIcon(routeName: string): string {
 }
 
 function CustomTabBar({ state, descriptors, navigation }: TabBarProps) {
-  const orderedRoutes = ["Home", "Journal", "Align", "Meals", "Profile"];
-
-  const sortedRoutes = [...state.routes].sort(
-    (a, b) => orderedRoutes.indexOf(a.name) - orderedRoutes.indexOf(b.name)
-  );
-
   return (
     <View style={styles.tabBar}>
-      {sortedRoutes.map((route, index) => {
+      {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined
