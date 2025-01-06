@@ -6,12 +6,57 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  FlatList,
 } from "react-native";
 import {
   Swipeable,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import MealsCard from "../components/MealsCard";
+
+const meals = [
+  {
+    id: "1",
+    category: "Breakfast",
+    title: "Gentle Oats with Honey and Berries",
+    description: "A soft and nourishing way to start the day",
+    bgColor: "#E0F2FE",
+    detailMeals: "/DetailMeals",
+    image:
+      "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
+  },
+  {
+    id: "2",
+    category: "Lunch",
+    title: "Grilled Chicken Salad",
+    description: "A balanced meal with fresh greens and lean protein",
+    bgColor: "#FEF9C3",
+    detailMeals: "/DetailMeals",
+    image:
+      "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
+  },
+  {
+    id: "3",
+    category: "Snack",
+    title: "Trail Mix with Dark Chocolate",
+    description: "A snack to fuel you through the day",
+    bgColor: "#ECFCCB",
+    detailMeals: "/DetailMeals",
+    image:
+      "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
+  },
+  {
+    id: "4",
+    category: "Dinner",
+    title: "Cozy Sweet Potato Curry",
+    description: "A creamy, warm dish for relaxing evenings",
+    bgColor: "#E0E7FF",
+    detailMeals: "/DetailMeals",
+    image:
+      "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
+  },
+];
 
 const HomePage = () => {
   const [activeSection, setActiveSection] = useState("progress");
@@ -212,62 +257,13 @@ const HomePage = () => {
           />
         </View>
 
-        <View style={styles.mealsContainer}>
-          <View style={styles.mealItem}>
-            <Text style={styles.mealCategory}>🍳 Breakfast</Text>
-            <View style={styles.mealCard}>
-              <Image
-                source={{ uri: "https://via.placeholder.com/150" }}
-                style={styles.mealImage}
-              />
-              <View style={{ paddingLeft: 10 }}>
-                <Text style={styles.mealName}>
-                  Gentle Oats with Honey and Berries
-                </Text>
-                <Text style={styles.mealDescription}>
-                  A soft and nourishing way to start the day
-                </Text>
-                <Ionicons
-                  name="bookmark-outline"
-                  size={24}
-                  style={{
-                    alignSelf: "flex-end",
-                    color: "gray",
-                    marginTop: 10,
-                  }}
-                />
-              </View>
-            </View>
-          </View>
-
-          {/* Lunch */}
-          <View style={styles.mealItem}>
-            <Text style={[styles.mealCategory, styles.bgColor]}>🥗 Lunch</Text>
-            <View style={styles.mealCard}>
-              <Image
-                source={{ uri: "https://via.placeholder.com/150" }}
-                style={styles.mealImage}
-              />
-              <View style={{ paddingLeft: 10 }}>
-                <Text style={styles.mealName}>
-                  Gentle Oats with Honey and Berries
-                </Text>
-                <Text style={styles.mealDescription}>
-                  A soft and nourishing way to start the day
-                </Text>
-                <Ionicons
-                  name="bookmark-outline"
-                  size={24}
-                  style={{
-                    alignSelf: "flex-end",
-                    color: "gray",
-                    marginTop: 10,
-                  }}
-                />
-              </View>
-            </View>
-          </View>
-        </View>
+        <FlatList
+          data={meals}
+          renderItem={({ item }) => <MealsCard item={item} />}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+        />
       </ScrollView>
     </GestureHandlerRootView>
   );
@@ -279,6 +275,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1F5F9",
     paddingHorizontal: 16,
     paddingTop: 24,
+  },
+  listContainer: {
+    paddingBottom: 24,
   },
   headerContainer: {
     marginBottom: 16,
@@ -370,9 +369,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "bold",
-  },
-  mealsContainer: {
-    marginBottom: 24,
   },
   mealItem: {
     marginBottom: 16,

@@ -2,14 +2,13 @@ import React from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   FlatList,
+  TouchableOpacity,
   ImageBackground,
-  Image,
 } from "react-native";
+import MealsCard from "../components/MealsCard";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
 
 const MealsPage = () => {
   const meals = [
@@ -19,7 +18,9 @@ const MealsPage = () => {
       title: "Gentle Oats with Honey and Berries",
       description: "A soft and nourishing way to start the day",
       bgColor: "#E0F2FE",
-      image: "https://via.placeholder.com/150",
+      detailMeals: "/DetailMeals",
+      image:
+        "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
     },
     {
       id: "2",
@@ -27,7 +28,9 @@ const MealsPage = () => {
       title: "Grilled Chicken Salad",
       description: "A balanced meal with fresh greens and lean protein",
       bgColor: "#FEF9C3",
-      image: "https://via.placeholder.com/150",
+      detailMeals: "/DetailMeals",
+      image:
+        "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
     },
     {
       id: "3",
@@ -35,7 +38,9 @@ const MealsPage = () => {
       title: "Trail Mix with Dark Chocolate",
       description: "A snack to fuel you through the day",
       bgColor: "#ECFCCB",
-      image: "https://via.placeholder.com/150",
+      detailMeals: "/DetailMeals",
+      image:
+        "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
     },
     {
       id: "4",
@@ -43,37 +48,11 @@ const MealsPage = () => {
       title: "Cozy Sweet Potato Curry",
       description: "A creamy, warm dish for relaxing evenings",
       bgColor: "#E0E7FF",
-      image: "https://via.placeholder.com/150",
+      detailMeals: "/DetailMeals",
+      image:
+        "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
     },
   ];
-
-  const renderMealItem = ({ item }: any) => (
-    <View style={styles.cardContainer}>
-      <View
-        style={{
-          borderTopRightRadius: 12,
-          borderTopLeftRadius: 12,
-          backgroundColor: item.bgColor,
-          padding: 12,
-        }}
-      >
-        <Text style={{ fontWeight: "bold" }}>{item.category}</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() => router.push("/DetailMeals")}
-      >
-        <Image source={{ uri: item.image }} style={styles.cardImage} />
-        <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>{item.title}</Text>
-          <Text style={styles.cardDescription}>{item.description}</Text>
-          <View style={styles.iconContainer}>
-            <Ionicons name="bookmark-outline" size={24} color="#888" />
-          </View>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
 
   return (
     <View style={styles.container}>
@@ -138,7 +117,7 @@ const MealsPage = () => {
       {/* Meal List */}
       <FlatList
         data={meals}
-        renderItem={renderMealItem}
+        renderItem={({ item }) => <MealsCard item={item} />}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
@@ -203,43 +182,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingBottom: 100,
-  },
-  card: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#FFF",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    marginBottom: 15,
-    padding: 12,
-    elevation: 2,
-  },
-  cardImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 8,
-  },
-  cardContent: {
-    flex: 1,
-    marginLeft: 13,
-    marginTop: 10,
-  },
-  cardTitle: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#000",
-  },
-  cardDescription: {
-    fontSize: 12,
-    color: "#7A7A7A",
-  },
-  iconContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  cardContainer: {
-    flexDirection: "column",
   },
 });
 

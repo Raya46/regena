@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
   View,
@@ -14,7 +15,7 @@ const ProfilePage = () => {
       <View style={styles.profileHeader}>
         <View style={styles.avatarContainer}>
           <Image
-            source={{ uri: "https://via.placeholder.com/100" }} // Ganti dengan URL atau sumber gambar Anda
+            source={{ uri: "https://via.placeholder.com/100" }}
             style={styles.avatar}
           />
           <TouchableOpacity style={styles.editIcon}>
@@ -38,26 +39,44 @@ const ProfilePage = () => {
 };
 
 const menuItems = [
-  { label: "Account Settings", icon: "⚙️" },
-  { label: "Manage Notifications", icon: "🔔" },
-  { label: "Saved Recipes", icon: "📖" },
-  { label: "Report a Problem", icon: "⚠️" },
-  { label: "Privacy & Security", icon: "🔒" },
-  { label: "Help Center", icon: "🎧" },
-  { label: "Log Out", icon: "🚪" },
+  {
+    label: "Account Settings",
+    icon: <Ionicons name="person-outline" color="#14B8A6" size={14} />,
+  },
+  {
+    label: "Manage Notifications",
+    icon: <Ionicons name="notifications-outline" color="#14B8A6" size={14} />,
+  },
+  {
+    label: "Saved Recipes",
+    icon: <Ionicons name="receipt-outline" color="#14B8A6" size={14} />,
+  },
+  {
+    label: "Report a Problem",
+    icon: <Ionicons name="warning-outline" color="#14B8A6" size={14} />,
+  },
+  {
+    label: "Privacy & Security",
+    icon: <Ionicons name="lock-closed-outline" color="#14B8A6" size={14} />,
+  },
+  {
+    label: "Help Center",
+    icon: <Ionicons name="headset-outline" color="#14B8A6" size={14} />,
+  },
+  {
+    label: "Log Out",
+    icon: <Ionicons name="enter-outline" color="#EF4444" size={14} />,
+  },
 ];
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7faff",
+    backgroundColor: "#F1F5F9",
   },
   profileHeader: {
     alignItems: "center",
     paddingVertical: 20,
-    backgroundColor: "#ffffff",
-    borderBottomWidth: 1,
-    borderBottomColor: "#e5e5e5",
   },
   avatarContainer: {
     position: "relative",
@@ -91,18 +110,23 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     marginTop: 10,
+    marginHorizontal: 10,
   },
   menuItem: {
     flexDirection: "row",
+    borderRadius: 10,
     alignItems: "center",
     padding: 15,
     backgroundColor: "#ffffff",
     borderBottomWidth: 1,
-    borderBottomColor: "#e5e5e5",
+    borderBottomColor: "#F1F5F9",
   },
   iconPlaceholder: {
     marginRight: 15,
     fontSize: 20,
+    backgroundColor: "#F0FDFA",
+    padding: 10,
+    borderRadius: 12,
   },
   menuText: {
     fontSize: 16,

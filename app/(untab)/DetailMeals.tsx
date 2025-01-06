@@ -6,7 +6,6 @@ import {
   ImageBackground,
   ScrollView,
   TouchableOpacity,
-  Animated,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -99,7 +98,7 @@ const DetailMeals = () => {
         >
           <View style={{ flexDirection: "row", gap: 6 }}>
             <Ionicons name="restaurant-outline" size={20} color="#000" />
-            <Text style={styles.sectionTitle}>Ingredients</Text>
+            <Text style={styles.sectionTitle}>How to Make It</Text>
           </View>
           <Ionicons name="chevron-down" size={20} color="#000" />
         </TouchableOpacity>
@@ -182,7 +181,6 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     flexDirection: "row",
-    marginBottom: 10,
     justifyContent: "space-between",
   },
   sectionTitle: {
@@ -193,6 +191,7 @@ const styles = StyleSheet.create({
   },
   sectionContent: {
     marginLeft: 10,
+    paddingTop: 12,
   },
   listItem: {
     fontSize: 14,
