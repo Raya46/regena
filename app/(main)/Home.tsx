@@ -23,6 +23,7 @@ const meals = [
     description: "A soft and nourishing way to start the day",
     bgColor: "#E0F2FE",
     detailMeals: "/DetailMeals",
+    icon: "sunny-outline",
     image:
       "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
   },
@@ -33,6 +34,7 @@ const meals = [
     description: "A balanced meal with fresh greens and lean protein",
     bgColor: "#FEF9C3",
     detailMeals: "/DetailMeals",
+    icon: "fast-food-outline",
     image:
       "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
   },
@@ -43,6 +45,7 @@ const meals = [
     description: "A snack to fuel you through the day",
     bgColor: "#ECFCCB",
     detailMeals: "/DetailMeals",
+    icon: "beer-outline",
     image:
       "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
   },
@@ -53,6 +56,7 @@ const meals = [
     description: "A creamy, warm dish for relaxing evenings",
     bgColor: "#E0E7FF",
     detailMeals: "/DetailMeals",
+    icon: "moon-outline",
     image:
       "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
   },
@@ -81,134 +85,56 @@ const HomePage = () => {
       <Text style={styles.progressText}>
         I've been on my healing journey for...
       </Text>
-      <View style={styles.progressBars}>
+      <View style={styles.progressBarContainer}>
         <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#0D9488",
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 50,
-            borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
-            marginBottom: 10,
-          }}
+          style={[
+            styles.progressBar,
+            {
+              width: "20%",
+              backgroundColor: "#2DD4BF",
+            },
+          ]}
         >
-          <View
-            style={[
-              styles.progressBar,
-              {
-                width: "20%",
-                backgroundColor: "#2DD4BF",
-              },
-            ]}
-          >
-            <Text style={styles.progressLabel}>1 Day</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#0D9488",
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 50,
-              borderTopLeftRadius: 10,
-              borderBottomLeftRadius: 10,
-            }}
-          ></View>
+          <Text style={styles.progressLabel}>1 Day</Text>
         </View>
+      </View>
+      <View style={styles.progressBarContainer}>
         <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#0D9488",
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 50,
-            borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
-            marginBottom: 10,
-          }}
+          style={[
+            styles.progressBar,
+            {
+              width: "70%",
+              backgroundColor: "#22D3EE",
+            },
+          ]}
         >
-          <View
-            style={[
-              styles.progressBar,
-              {
-                width: "70%",
-                backgroundColor: "#22D3EE",
-              },
-            ]}
-          >
-            <Text style={styles.progressLabel}>18 Hours</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#0D9488",
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 50,
-              borderTopLeftRadius: 10,
-              borderBottomLeftRadius: 10,
-            }}
-          ></View>
+          <Text style={styles.progressLabel}>18 Hours</Text>
         </View>
+      </View>
+      <View style={styles.progressBarContainer}>
         <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#0D9488",
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 50,
-            borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
-            marginBottom: 10,
-          }}
+          style={[
+            styles.progressBar,
+            {
+              width: "30%",
+              backgroundColor: "#818CF8",
+            },
+          ]}
         >
-          <View
-            style={[
-              styles.progressBar,
-              {
-                width: "30%",
-                backgroundColor: "#818CF8",
-              },
-            ]}
-          >
-            <Text style={styles.progressLabel}>17 Minutes</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#0D9488",
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 50,
-              borderTopLeftRadius: 10,
-              borderBottomLeftRadius: 10,
-            }}
-          ></View>
+          <Text style={styles.progressLabel}>17 Minutes</Text>
         </View>
+      </View>
+      <View style={styles.progressBarContainer}>
         <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#0D9488",
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 50,
-            borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
-            marginBottom: 10,
-          }}
+          style={[
+            styles.progressBar,
+            {
+              width: "80%",
+              backgroundColor: "#A78BFA",
+            },
+          ]}
         >
-          <View
-            style={[
-              styles.progressBar,
-              {
-                width: "80%",
-                backgroundColor: "#A78BFA",
-              },
-            ]}
-          >
-            <Text style={styles.progressLabel}>48 Seconds</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#0D9488",
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 50,
-              borderTopLeftRadius: 10,
-              borderBottomLeftRadius: 10,
-            }}
-          ></View>
+          <Text style={styles.progressLabel}>48 Seconds</Text>
         </View>
       </View>
     </View>
@@ -276,8 +202,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 24,
   },
+  progressBarContainer: {
+    backgroundColor: "#0D9488",
+    marginBottom: 10,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 50,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
   listContainer: {
     paddingBottom: 24,
+    gap: 12,
   },
   headerContainer: {
     marginBottom: 16,
@@ -323,10 +258,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
     color: "#4A5568",
-    marginBottom: 8,
-  },
-  progressBars: {
-    marginTop: 8,
+    marginBottom: 15,
   },
   progressBar: {
     height: "100%",
@@ -342,6 +274,7 @@ const styles = StyleSheet.create({
   progressLabel: {
     color: "#ffffff",
     fontSize: 12,
+    position: "absolute",
   },
   resetContainer: {
     backgroundColor: "#F0FFF4",

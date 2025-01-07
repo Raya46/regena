@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
 import {
@@ -35,6 +36,7 @@ export default function LoginScreen() {
         </TouchableOpacity>
         <Text style={styles.orText}>Or</Text>
         <TouchableOpacity style={styles.googleButton}>
+          <Ionicons name="logo-google" size={16} />
           <Text style={styles.googleButtonText}>Continue with Google</Text>
         </TouchableOpacity>
       </View>
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     borderColor: "#E5E5E5",
   },
   button: {
-    backgroundColor: "#00A86B",
+    backgroundColor: "#14B8A6",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
@@ -96,14 +98,16 @@ const styles = StyleSheet.create({
     color: "#AAAAAA",
   },
   googleButton: {
-    borderColor: "#DD4B39",
-    borderWidth: 1,
     padding: 15,
+    backgroundColor: "#fff",
     borderRadius: 10,
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "center",
     alignItems: "center",
+    alignContent: "center",
   },
   googleButtonText: {
-    color: "#DD4B39",
     fontSize: 16,
   },
   row: {

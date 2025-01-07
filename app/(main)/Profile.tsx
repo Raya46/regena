@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
 import {
   View,
@@ -65,7 +66,14 @@ const menuItems = [
   },
   {
     label: "Log Out",
-    icon: <Ionicons name="enter-outline" color="#EF4444" size={14} />,
+    icon: (
+      <Ionicons
+        name="enter-outline"
+        color="#EF4444"
+        size={14}
+        onPress={() => router.replace("/")}
+      />
+    ),
   },
 ];
 

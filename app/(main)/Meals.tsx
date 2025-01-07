@@ -19,6 +19,7 @@ const MealsPage = () => {
       description: "A soft and nourishing way to start the day",
       bgColor: "#E0F2FE",
       detailMeals: "/DetailMeals",
+      icon: "sunny-outline",
       image:
         "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
     },
@@ -29,6 +30,7 @@ const MealsPage = () => {
       description: "A balanced meal with fresh greens and lean protein",
       bgColor: "#FEF9C3",
       detailMeals: "/DetailMeals",
+      icon: "fast-food-outline",
       image:
         "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
     },
@@ -39,6 +41,7 @@ const MealsPage = () => {
       description: "A snack to fuel you through the day",
       bgColor: "#ECFCCB",
       detailMeals: "/DetailMeals",
+      icon: "beer-outline",
       image:
         "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
     },
@@ -49,6 +52,7 @@ const MealsPage = () => {
       description: "A creamy, warm dish for relaxing evenings",
       bgColor: "#E0E7FF",
       detailMeals: "/DetailMeals",
+      icon: "moon-outline",
       image:
         "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
     },
@@ -182,6 +186,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingBottom: 100,
+    gap: 12,
   },
 });
 

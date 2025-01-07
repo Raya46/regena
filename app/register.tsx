@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
 import {
@@ -12,10 +13,24 @@ export default function RegisterScreen() {
   return (
     <View style={styles.container}>
       <View style={{ paddingTop: 20, paddingBottom: 20 }}>
-        <Text onPress={() => router.replace("/")}>{"<-"}</Text>
+        <Ionicons
+          name="arrow-back"
+          size={20}
+          onPress={() => router.replace("/")}
+        />
       </View>
       <View>
         <Text style={styles.title}>Register</Text>
+        <Text
+          style={{
+            fontWeight: 500,
+            fontSize: 12,
+            color: "#6B7280",
+            marginVertical: 12,
+          }}
+        >
+          Create an account to continue!
+        </Text>
         <TextInput style={styles.input} placeholder="First Name" />
         <TextInput style={styles.input} placeholder="Last Name" />
         <TextInput style={styles.input} placeholder="Email" />
@@ -34,6 +49,7 @@ export default function RegisterScreen() {
         </TouchableOpacity>
         <Text style={styles.orText}>Or</Text>
         <TouchableOpacity style={styles.googleButton}>
+          <Ionicons name="logo-google" size={16} />
           <Text style={styles.googleButtonText}>Continue with Google</Text>
         </TouchableOpacity>
         <View style={styles.row}>
@@ -56,7 +72,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
   },
   input: {
     height: 50,
@@ -69,7 +84,7 @@ const styles = StyleSheet.create({
     borderColor: "#E5E5E5",
   },
   button: {
-    backgroundColor: "#00A86B",
+    backgroundColor: "#14B8A6",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
@@ -95,14 +110,16 @@ const styles = StyleSheet.create({
     color: "#AAAAAA",
   },
   googleButton: {
-    borderColor: "#DD4B39",
-    borderWidth: 1,
     padding: 15,
+    backgroundColor: "#fff",
     borderRadius: 10,
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "center",
     alignItems: "center",
+    alignContent: "center",
   },
   googleButtonText: {
-    color: "#DD4B39",
     fontSize: 16,
   },
 });

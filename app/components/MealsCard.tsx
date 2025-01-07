@@ -5,15 +5,22 @@ import { router } from "expo-router";
 
 const MealsCard = ({ item }: any) => {
   return (
-    <View style={styles.cardContainer}>
+    <View
+      style={{
+        borderRadius: 12,
+        backgroundColor: item.bgColor,
+        flexDirection: "column",
+      }}
+    >
       <View
         style={{
-          borderTopRightRadius: 12,
-          borderTopLeftRadius: 12,
-          backgroundColor: item.bgColor,
+          flexDirection: "row",
+          gap: 6,
+          alignContent: "center",
           padding: 12,
         }}
       >
+        <Ionicons name={item.icon} size={16} />
         <Text style={{ fontWeight: "bold" }}>{item.category}</Text>
       </View>
       <TouchableOpacity
@@ -38,7 +45,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#FFF",
     borderRadius: 12,
-    marginBottom: 15,
     padding: 12,
     elevation: 2,
   },
@@ -66,9 +72,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignSelf: "flex-end",
     alignItems: "center",
-  },
-  cardContainer: {
-    flexDirection: "column",
   },
 });
 
