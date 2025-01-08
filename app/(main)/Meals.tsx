@@ -6,61 +6,18 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  ScrollView,
 } from "react-native";
-import MealsCard from "../components/MealsCard";
+import MealsCard from "../_components/MealsCard";
 import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
+import { meals } from "../_constant/ListMeals";
 
 const MealsPage = () => {
-  const meals = [
-    {
-      id: "1",
-      category: "Breakfast",
-      title: "Gentle Oats with Honey and Berries",
-      description: "A soft and nourishing way to start the day",
-      bgColor: "#E0F2FE",
-      detailMeals: "/DetailMeals",
-      icon: "sunny-outline",
-      image:
-        "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
-    },
-    {
-      id: "2",
-      category: "Lunch",
-      title: "Grilled Chicken Salad",
-      description: "A balanced meal with fresh greens and lean protein",
-      bgColor: "#FEF9C3",
-      detailMeals: "/DetailMeals",
-      icon: "fast-food-outline",
-      image:
-        "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
-    },
-    {
-      id: "3",
-      category: "Snack",
-      title: "Trail Mix with Dark Chocolate",
-      description: "A snack to fuel you through the day",
-      bgColor: "#ECFCCB",
-      detailMeals: "/DetailMeals",
-      icon: "beer-outline",
-      image:
-        "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
-    },
-    {
-      id: "4",
-      category: "Dinner",
-      title: "Cozy Sweet Potato Curry",
-      description: "A creamy, warm dish for relaxing evenings",
-      bgColor: "#E0E7FF",
-      detailMeals: "/DetailMeals",
-      icon: "moon-outline",
-      image:
-        "https://s3-alpha-sig.figma.com/img/b305/e5fe/6245a571312f360d18f30dbc0ab6255d?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XdbjZAA5tJ3j9OnWkNGzC~9egbAhbe1bQxmE5VJUt0RpH80~u6nvGeDD4RXMlj26UhlKaVyZ6HkKAMO2mSG25YozSabIepokG6gRupMF~PV6Bfbybq-eipW--rbWWFIbgeMDSyEMaGBHosk62u8mU2gz3jbI2zSxcI6HEmaqL7Fk3i06b8i~hxi0es-gtZWwLPugcEy6cHuVBcm-WTlkWOn5JST71mDISF0OAoXk1ZJRciVMtX3R4nv8EmougzFVUCYCTI3MkZh6Pp-zyzQfYmc29Yw-a7eD~avsDjt5KTTBJEgXnYTrTV1mdHViKupwwcuZmxtJA8V~eVclL2sZnA__",
-    },
-  ];
-
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Header */}
+
       <View style={styles.header}>
         <Text style={styles.title}>Meals Made for You</Text>
         <Text style={styles.subtitle}>
@@ -68,29 +25,13 @@ const MealsPage = () => {
         </Text>
       </View>
 
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          backgroundColor: "#fff",
-          borderRadius: 10,
-          marginBottom: 24,
-        }}
-      >
-        <View style={{ flexDirection: "row", gap: 8, padding: 12, flex: 3 }}>
+      <View style={styles.categoryContainer}>
+        <View style={styles.categorySelect}>
           <Text>Select Category</Text>
           <Ionicons name="chevron-down" size={20} />
         </View>
-        <View
-          style={{
-            backgroundColor: "#14B8A6",
-            padding: 12,
-            borderTopRightRadius: 10,
-            borderBottomRightRadius: 10,
-            flex: 1,
-          }}
-        >
-          <Text style={{ color: "#fff", textAlign: "center" }}>Generate</Text>
+        <View style={styles.generateButton}>
+          <Text style={styles.generateText}>Generate</Text>
         </View>
       </View>
 
@@ -104,7 +45,7 @@ const MealsPage = () => {
           imageStyle={{ borderRadius: 12 }}
           resizeMode="cover"
         >
-          <View style={styles.blurOverlay}>
+          <BlurView intensity={50} tint="dark" style={styles.blurOverlay}>
             <Text style={styles.featuredTitle}>
               Energizing Morning Smoothie
             </Text>
@@ -114,7 +55,7 @@ const MealsPage = () => {
             <TouchableOpacity>
               <Text style={styles.readMore}>Read More →</Text>
             </TouchableOpacity>
-          </View>
+          </BlurView>
         </ImageBackground>
       </View>
 
@@ -124,9 +65,8 @@ const MealsPage = () => {
         renderItem={({ item }) => <MealsCard item={item} />}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContainer}
-        showsVerticalScrollIndicator={false}
       />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -137,6 +77,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
   },
+  blurContainer: {
+    flex: 1,
+    padding: 20,
+    marginBottom: 20,
+    borderRadius: 20,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff",
+  },
   header: {
     marginBottom: 20,
   },
@@ -146,24 +100,47 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#7A7A7A",
     marginTop: 5,
+  },
+  categoryContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    marginBottom: 24,
+  },
+  categorySelect: {
+    flexDirection: "row",
+    gap: 8,
+    padding: 12,
+    flex: 3,
+  },
+  generateButton: {
+    backgroundColor: "#14B8A6",
+    padding: 12,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    flex: 1,
+  },
+  generateText: {
+    color: "#fff",
+    textAlign: "center",
   },
   featuredCard: {
     marginBottom: 20,
     borderRadius: 12,
     overflow: "hidden",
     maxWidth: "100%",
-    maxHeight: "100%",
+    alignItems: "center",
   },
   featuredImage: {
-    width: "100%",
-    height: 200,
+    width: 342,
+    height: 300,
     justifyContent: "flex-end",
   },
   blurOverlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
     padding: 15,
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
@@ -185,7 +162,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   listContainer: {
-    paddingBottom: 100,
     gap: 12,
   },
 });

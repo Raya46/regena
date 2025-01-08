@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -53,7 +54,7 @@ const AlignPage = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>Align your thoughts</Text>
@@ -78,7 +79,7 @@ const AlignPage = () => {
       >
         <Ionicons name="add" size={32} color="white" />
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -141,13 +142,14 @@ const styles = StyleSheet.create({
   addButton: {
     position: "absolute",
     bottom: 30,
-    right: 30,
+    right: 0,
     width: 60,
     height: 60,
     backgroundColor: "#00A398",
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "flex-end",
   },
 });
 

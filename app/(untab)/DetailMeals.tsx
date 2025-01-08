@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { BlurView } from "expo-blur";
 
 const DetailMeals = () => {
   const recipe = {
@@ -38,6 +39,7 @@ const DetailMeals = () => {
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={false}
     >
       {/* Header */}
       <View style={styles.header}>
@@ -60,10 +62,10 @@ const DetailMeals = () => {
             resizeMode="cover"
           ></ImageBackground>
         </View>
-        <View style={styles.imageOverlay}>
+        <BlurView intensity={50} tint="dark" style={styles.imageOverlay}>
           <Text style={styles.title}>{recipe.title}</Text>
           <Text style={styles.description}>{recipe.description}</Text>
-        </View>
+        </BlurView>
       </View>
       <View style={{ marginVertical: 10 }}></View>
 
@@ -152,7 +154,6 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   imageOverlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
     padding: 15,
     borderRadius: 12,
     width: "80%",

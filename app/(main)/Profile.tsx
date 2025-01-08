@@ -13,10 +13,23 @@ import {
 const ProfilePage = () => {
   return (
     <ScrollView style={styles.container}>
+      <Text
+        style={{
+          fontSize: 24,
+          fontWeight: 600,
+          color: "#111827",
+          alignSelf: "center",
+          marginTop: 20,
+        }}
+      >
+        Profile
+      </Text>
       <View style={styles.profileHeader}>
         <View style={styles.avatarContainer}>
           <Image
-            source={{ uri: "https://via.placeholder.com/100" }}
+            source={{
+              uri: "https://s3-alpha-sig.figma.com/img/bf60/a600/2fcdddd85ac09a631407eb988422dc38?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=aMDTIS3tE0OR~Ziy3O3xMbO2L6ijLoRxzaLe8yMpPRh-9EyaP-h5IPzQRghQYy2IS8DDbyd0WZYIshSrDTUTPfSkeHiqj6rQnecpmOAwOzhbJRCiEKWhVvpcmeEX13~Eqyt8pU1gbhbrynqzwrO6P8KJXlb25tv6XyoZ5rsfXoYw9I0PQ15qE6trZrVpUvS61FikaGijszL8fYNIW4QGQ4xqF7QY9kNkQ6vm0q2ndiJfEhTA1skjeP2gtajNzl1xbXz7T0YAeq8N-VDBgsU6Q0244~o2MTPx95y63dtpk82A67eHPVTet2II-XfXi6NqKh4wADPvbkpuxNhdvDjAxA__",
+            }}
             style={styles.avatar}
           />
           <TouchableOpacity style={styles.editIcon}>
@@ -84,7 +97,7 @@ const styles = StyleSheet.create({
   },
   profileHeader: {
     alignItems: "center",
-    paddingVertical: 20,
+    paddingVertical: 5,
   },
   avatarContainer: {
     position: "relative",
@@ -118,13 +131,14 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     marginTop: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
   },
   menuItem: {
     flexDirection: "row",
     borderRadius: 10,
     alignItems: "center",
-    padding: 15,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     backgroundColor: "#ffffff",
     borderBottomWidth: 1,
     borderBottomColor: "#F1F5F9",
@@ -137,7 +151,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   menuText: {
-    fontSize: 16,
+    fontSize: 12,
     color: "#333",
   },
 });

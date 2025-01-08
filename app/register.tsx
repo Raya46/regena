@@ -7,12 +7,13 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 
 export default function RegisterScreen() {
   return (
-    <View style={styles.container}>
-      <View style={{ paddingTop: 20, paddingBottom: 20 }}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <View style={{ paddingVertical: 20 }}>
         <Ionicons
           name="arrow-back"
           size={20}
@@ -31,15 +32,36 @@ export default function RegisterScreen() {
         >
           Create an account to continue!
         </Text>
-        <TextInput style={styles.input} placeholder="First Name" />
-        <TextInput style={styles.input} placeholder="Last Name" />
-        <TextInput style={styles.input} placeholder="Email" />
-        <TextInput style={styles.input} placeholder="DD/MM/YYYY" />
-        <TextInput style={styles.input} placeholder="region" />
+        <TextInput
+          style={styles.input}
+          placeholder="First Name"
+          placeholderTextColor="#9CA3AF"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Last Name"
+          placeholderTextColor="#9CA3AF"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#9CA3AF"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="DD/MM/YYYY"
+          placeholderTextColor="#9CA3AF"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="region"
+          placeholderTextColor="#9CA3AF"
+        />
         <TextInput
           style={styles.input}
           placeholder="Password"
           secureTextEntry
+          placeholderTextColor="#9CA3AF"
         />
         <TouchableOpacity
           style={styles.button}
@@ -59,7 +81,7 @@ export default function RegisterScreen() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -67,19 +89,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
-    padding: 20,
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
   },
   input: {
-    height: 50,
+    height: 42,
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
     paddingHorizontal: 15,
     marginBottom: 15,
-    fontSize: 16,
+    fontSize: 14,
     borderWidth: 1,
     borderColor: "#E5E5E5",
   },
@@ -88,7 +110,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
-    marginBottom: 10,
+    marginVertical: 10,
   },
   buttonText: {
     color: "#FFFFFF",
