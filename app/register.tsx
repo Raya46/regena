@@ -9,18 +9,22 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import SVGTopBar from "./_components/gradientTopBarSVG";
 
 export default function RegisterScreen() {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={{ paddingVertical: 20 }}>
+      <SVGTopBar />
+
+      <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
         <Ionicons
           name="arrow-back"
           size={20}
           onPress={() => router.replace("/")}
+          style={{ zIndex: 999, position: "relative" }}
         />
       </View>
-      <View>
+      <View style={{ paddingHorizontal: 20 }}>
         <Text style={styles.title}>Register</Text>
         <Text
           style={{
@@ -89,7 +93,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
-    paddingHorizontal: 20,
   },
   title: {
     fontSize: 24,

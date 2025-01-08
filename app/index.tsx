@@ -8,10 +8,12 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import SVGTopBar from "./_components/gradientTopBarSVG";
 
 export default function LoginScreen() {
   return (
     <View style={styles.container}>
+      <SVGTopBar />
       <View style={{ flex: 5, justifyContent: "center" }}>
         <Text style={styles.title}>Sign in to your Account</Text>
         <TextInput style={styles.input} placeholder="Enter your email" />
