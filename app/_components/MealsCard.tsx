@@ -25,7 +25,15 @@ const MealsCard = ({ item }: any) => {
       </View>
       <TouchableOpacity
         style={styles.card}
-        onPress={() => router.push(item.detailMeals)}
+        onPress={() =>
+          router.push({
+            pathname: "/DetailMeals",
+            params: {
+              ...item,
+              recipe: JSON.stringify(item.recipe),
+            },
+          })
+        }
       >
         <Image source={{ uri: item.image }} style={styles.cardImage} />
         <View style={styles.cardContent}>

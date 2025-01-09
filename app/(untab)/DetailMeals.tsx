@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,29 +8,24 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useGlobalSearchParams } from "expo-router";
 import { BlurView } from "expo-blur";
 
 const DetailMeals = () => {
-  const recipe = {
-    title: "Energizing Morning Smoothie",
-    description:
-      "A refreshing smoothie to kickstart your day with natural energy.",
-    image:
-      "https://cdn.loveandlemons.com/wp-content/uploads/2023/05/mango-smoothie.jpg",
-    ingredients: [
-      "1 banana",
-      "1 cup almond milk",
-      "1 handful spinach",
-      "1 tbsp peanut butter",
-      "Ice cubes",
-    ],
-    steps: [
-      "Combine all ingredients in a blender.",
-      "Blend until smooth.",
-      "Pour into a glass and enjoy!",
-    ],
-  };
+  const params = useGlobalSearchParams();
+  const [recipeData, setRecipeData] = useState<any>(null);
+
+  useEffect(() => {
+    console.log(params);
+    if (params.recipe) {
+      try {
+        const parsed = JSON.parse(params.recipe as string);
+        setRecipeData(parsed);
+      } catch (error) {
+        console.error("Error parsing recipe data:", error);
+      }
+    }
+  }, [params.recipe]);
 
   const [ingredientsExpanded, setIngredientsExpanded] = useState(false);
   const [stepsExpanded, setStepsExpanded] = useState(false);
@@ -57,17 +52,16 @@ const DetailMeals = () => {
       <View style={styles.imageContainer}>
         <View style={styles.imageWrapper}>
           <ImageBackground
-            source={{ uri: recipe.image }}
+            source={{ uri: params.image as string }}
             style={styles.image}
             resizeMode="cover"
-          ></ImageBackground>
+          />
         </View>
         <BlurView intensity={50} tint="dark" style={styles.imageOverlay}>
-          <Text style={styles.title}>{recipe.title}</Text>
-          <Text style={styles.description}>{recipe.description}</Text>
+          <Text style={styles.title}>{params.title as string}</Text>
+          <Text style={styles.description}>{params.description as string}</Text>
         </BlurView>
       </View>
-      <View style={{ marginVertical: 10 }}></View>
 
       {/* Ingredients Section */}
       <View style={styles.section}>
@@ -81,9 +75,9 @@ const DetailMeals = () => {
           </View>
           <Ionicons name="chevron-down" size={20} color="#000" />
         </TouchableOpacity>
-        {ingredientsExpanded && (
+        {ingredientsExpanded && recipeData && (
           <View style={styles.sectionContent}>
-            {recipe.ingredients.map((ingredient, index) => (
+            {recipeData.ingredients.map((ingredient: string, index: number) => (
               <Text key={index} style={styles.listItem}>
                 • {ingredient}
               </Text>
@@ -104,9 +98,9 @@ const DetailMeals = () => {
           </View>
           <Ionicons name="chevron-down" size={20} color="#000" />
         </TouchableOpacity>
-        {stepsExpanded && (
+        {stepsExpanded && recipeData && (
           <View style={styles.sectionContent}>
-            {recipe.steps.map((step, index) => (
+            {recipeData.steps.map((step: string, index: number) => (
               <Text key={index} style={styles.listItem}>
                 {index + 1}. {step}
               </Text>

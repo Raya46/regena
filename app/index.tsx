@@ -16,11 +16,16 @@ export default function LoginScreen() {
       <SVGTopBar />
       <View style={{ flex: 5, justifyContent: "center" }}>
         <Text style={styles.title}>Sign in to your Account</Text>
-        <TextInput style={styles.input} placeholder="Enter your email" />
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your email"
+          placeholderTextColor="#9CA3AF"
+        />
         <TextInput
           style={styles.input}
           placeholder="Password"
           secureTextEntry
+          placeholderTextColor="#9CA3AF"
         />
         <View style={styles.row}>
           <TouchableOpacity>
