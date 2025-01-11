@@ -12,9 +12,12 @@ import SVGTopBar from "./_components/gradientTopBarSVG";
 import { useLogin } from "./hooks/useLogin";
 
 export default function LoginScreen() {
-  const { fields, setFields, login } = useLogin();
+  const { fields, setFields, login, continueWithGoogle } = useLogin();
   const handleLogin = async () => {
     await login("http://localhost:2000/login", "/Home");
+  };
+  const handleContinueWithGoogle = async () => {
+    await continueWithGoogle("http://localhost:2000/auth/google");
   };
   return (
     <View style={styles.container}>
@@ -46,13 +49,13 @@ export default function LoginScreen() {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <Text style={styles.orText}>Or</Text>
-        <Link
+        <TouchableOpacity
           style={styles.googleButton}
-          href="http://localhost:2000/auth/google"
+          onPress={handleContinueWithGoogle}
         >
           <Ionicons name="logo-google" size={16} />
           <Text style={styles.googleButtonText}>Continue with Google</Text>
-        </Link>
+        </TouchableOpacity>
       </View>
 
       <View
