@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import React from "react";
 import {
   View,
@@ -9,8 +9,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import SVGTopBar from "./_components/gradientTopBarSVG";
+import { useLogin } from "./hooks/useLogin";
 
 export default function LoginScreen() {
+  const { fields, setFields, login } = useLogin();
+  const handleLogin = async () => {
+    await login("http://localhost:2000/login", "/Home");
+  };
   return (
     <View style={styles.container}>
       <SVGTopBar />
@@ -20,12 +25,14 @@ export default function LoginScreen() {
           style={styles.input}
           placeholder="Enter your email"
           placeholderTextColor="#9CA3AF"
+          onChangeText={(text) => setFields({ ...fields, email: text })}
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
           secureTextEntry
           placeholderTextColor="#9CA3AF"
+          onChangeText={(text) => setFields({ ...fields, password: text })}
         />
         <View style={styles.row}>
           <TouchableOpacity>
@@ -35,17 +42,17 @@ export default function LoginScreen() {
             <Text style={styles.linkText}>Forgot Password?</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.replace("/Home")}
-        >
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <Text style={styles.orText}>Or</Text>
-        <TouchableOpacity style={styles.googleButton}>
+        <Link
+          style={styles.googleButton}
+          href="http://localhost:2000/auth/google"
+        >
           <Ionicons name="logo-google" size={16} />
           <Text style={styles.googleButtonText}>Continue with Google</Text>
-        </TouchableOpacity>
+        </Link>
       </View>
 
       <View
