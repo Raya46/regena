@@ -10,8 +10,17 @@ import {
   ScrollView,
 } from "react-native";
 import SVGTopBar from "./_components/gradientTopBarSVG";
+import { useAuth } from "./hooks/useAuth";
 
 export default function RegisterScreen() {
+  const { fieldsRegister, setFieldsRegister, register, continueWithGoogle } =
+    useAuth();
+  const handleRegister = async () => {
+    await register("http://localhost:2000/register", "/Home");
+  };
+  const handleContinueWithGoogle = async () => {
+    await continueWithGoogle("http://localhost:2000/auth/google");
+  };
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <SVGTopBar />
@@ -40,41 +49,59 @@ export default function RegisterScreen() {
           style={styles.input}
           placeholder="First Name"
           placeholderTextColor="#9CA3AF"
+          onChangeText={(text) =>
+            setFieldsRegister({ ...fieldsRegister, firstName: text })
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="Last Name"
           placeholderTextColor="#9CA3AF"
+          onChangeText={(text) =>
+            setFieldsRegister({ ...fieldsRegister, lastName: text })
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="Email"
           placeholderTextColor="#9CA3AF"
+          onChangeText={(text) =>
+            setFieldsRegister({ ...fieldsRegister, email: text })
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="DD/MM/YYYY"
           placeholderTextColor="#9CA3AF"
+          onChangeText={(text) =>
+            setFieldsRegister({ ...fieldsRegister, dateOfBirth: text })
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="region"
           placeholderTextColor="#9CA3AF"
+          onChangeText={(text) =>
+            setFieldsRegister({ ...fieldsRegister, region: text })
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
           secureTextEntry
           placeholderTextColor="#9CA3AF"
+          onChangeText={(text) =>
+            setFieldsRegister({ ...fieldsRegister, password: text })
+          }
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.replace("/Home")}
-        >
+        <TouchableOpacity style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
         <Text style={styles.orText}>Or</Text>
-        <TouchableOpacity style={styles.googleButton}>
+        <TouchableOpacity
+          style={styles.googleButton}
+          onPress={handleContinueWithGoogle}
+        >
           <Ionicons name="logo-google" size={16} />
           <Text style={styles.googleButtonText}>Continue with Google</Text>
         </TouchableOpacity>

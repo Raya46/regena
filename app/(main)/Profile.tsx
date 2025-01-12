@@ -1,5 +1,4 @@
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
 import React from "react";
 import {
   View,
@@ -9,8 +8,13 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { useAuth } from "../hooks/useAuth";
 
 const ProfilePage = () => {
+  const { logout } = useAuth();
+  const handleLogout = async () => {
+    await logout("http://localhost:2000/logout", "/");
+  };
   return (
     <ScrollView style={styles.container}>
       <Text
@@ -47,6 +51,12 @@ const ProfilePage = () => {
             <Text style={styles.menuText}>{item.label}</Text>
           </TouchableOpacity>
         ))}
+        <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
+          <View style={styles.iconPlaceholder}>
+            <Ionicons name="enter-outline" color="#EF4444" size={14} />
+          </View>
+          <Text style={styles.menuText}>Log Out</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -76,17 +86,6 @@ const menuItems = [
   {
     label: "Help Center",
     icon: <Ionicons name="headset-outline" color="#14B8A6" size={14} />,
-  },
-  {
-    label: "Log Out",
-    icon: (
-      <Ionicons
-        name="enter-outline"
-        color="#EF4444"
-        size={14}
-        onPress={() => router.replace("/")}
-      />
-    ),
   },
 ];
 

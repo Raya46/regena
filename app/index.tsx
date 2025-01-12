@@ -9,10 +9,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import SVGTopBar from "./_components/gradientTopBarSVG";
-import { useLogin } from "./hooks/useLogin";
+import { useAuth } from "./hooks/useAuth";
 
 export default function LoginScreen() {
-  const { fields, setFields, login, continueWithGoogle } = useLogin();
+  const { fields, setFields, login, continueWithGoogle } = useAuth();
   const handleLogin = async () => {
     await login("http://localhost:2000/login", "/Home");
   };
