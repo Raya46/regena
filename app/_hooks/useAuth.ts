@@ -12,6 +12,7 @@ export const useAuth = () => {
   const [fieldsRegister, setFieldsRegister] = useState({
     firstName: "",
     lastName: "",
+    username: "",
     email: "",
     dateOfBirth: "",
     region: "",
@@ -66,7 +67,15 @@ export const useAuth = () => {
 
   const register = async (url: string, page: any) => {
     try {
-      const response = await axios.post(url, fieldsRegister);
+      const usernameFromField = `${fieldsRegister.firstName} ${fieldsRegister.lastName}`;
+      const registrationData = {
+        username: usernameFromField,
+        email: fieldsRegister.email,
+        dateOfBirth: fieldsRegister.dateOfBirth,
+        region: fieldsRegister.region,
+        password: fieldsRegister.password,
+      };
+      const response = await axios.post(url, registrationData);
       const token = response.data.token;
       const username = response.data.user.username;
       const email = response.data.user.email;
@@ -74,6 +83,7 @@ export const useAuth = () => {
       setFieldsRegister({
         firstName: "",
         lastName: "",
+        username: "",
         email: "",
         dateOfBirth: "",
         region: "",

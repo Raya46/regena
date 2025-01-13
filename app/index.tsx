@@ -1,140 +1,262 @@
+import React, { useState } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { Link, router } from "expo-router";
-import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
-import SVGTopBar from "./_components/gradientTopBarSVG";
-import { useAuth } from "./hooks/useAuth";
 
-export default function LoginScreen() {
-  const { fields, setFields, login, continueWithGoogle } = useAuth();
-  const handleLogin = async () => {
-    await login("http://localhost:2000/login", "/Home");
+const OnboardingPage = () => {
+  const [step, setStep] = useState(1);
+
+  const handleNext = () => {
+    if (step < 3) {
+      setStep(step + 1);
+    } else {
+      router.push("/login");
+    }
   };
-  const handleContinueWithGoogle = async () => {
-    await continueWithGoogle("http://localhost:2000/auth/google");
+
+  const handlePrev = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
   };
+
+  const renderIndicator = (currentStep: number) => {
+    return [1, 2, 3].map((dot) => (
+      <View
+        key={dot}
+        style={{
+          backgroundColor: dot === currentStep ? "#14B8A6" : "#F1F5F9",
+          padding: 5,
+          borderRadius: 5,
+          width: dot === currentStep ? 32 : undefined,
+        }}
+      />
+    ));
+  };
+
   return (
     <View style={styles.container}>
-      <SVGTopBar />
-      <View style={{ flex: 5, justifyContent: "center" }}>
-        <Text style={styles.title}>Sign in to your Account</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your email"
-          placeholderTextColor="#9CA3AF"
-          onChangeText={(text) => setFields({ ...fields, email: text })}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry
-          placeholderTextColor="#9CA3AF"
-          onChangeText={(text) => setFields({ ...fields, password: text })}
-        />
-        <View style={styles.row}>
-          <TouchableOpacity>
-            <Text>Remember Me</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.linkText}>Forgot Password?</Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <Text style={styles.orText}>Or</Text>
-        <TouchableOpacity
-          style={styles.googleButton}
-          onPress={handleContinueWithGoogle}
-        >
-          <Ionicons name="logo-google" size={16} />
-          <Text style={styles.googleButtonText}>Continue with Google</Text>
-        </TouchableOpacity>
-      </View>
+      {step === 1 && (
+        <View style={{ flex: 1 }}>
+          {/* Image */}
+          <Image
+            source={{
+              uri: "https://s3-alpha-sig.figma.com/img/617e/a04b/5dc599233da68f5ba7cfb4b69fe57535?Expires=1737331200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=GDvF3e0rfStc4qJKkmNap4YLW1haYlI0DZOrs1U8SbDBgchxBHK1L8CT4ft1O2ehF-qhyAOXifpg3BMN3NTSOOO~J9ZpN2l2ezZLvejBuy0ENhT2xKr0DWfA2LTGlwRb77uKaWLPPROKSjI5tnedWhjaYzhxmY35aLqaURklqYs6tacQb9m~lUVPCYhcF0nGUQfD-5jzLF~TIAUmicqAhK7TaK63ZWmw~ozD5QTMFMNlXQr7wdjYcd7CJnbZT044fzJeKmRq3U~3gBYwgyQsqz6GlVCXGcEqWIcDVBMVs~YFayloohq9-J-FrTKvZoDHhdyqBc5a-z1Qq~OdAoLwwg__",
+            }}
+            style={{ width: "100%", height: "100%", flex: 3 }}
+          />
 
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "flex-end",
-          flex: 1,
-          marginBottom: 20,
-        }}
-      >
-        <Text>Don't have an account?</Text>
-        <TouchableOpacity onPress={() => router.push("/register")}>
-          <Text style={styles.linkText}> Sign Up</Text>
-        </TouchableOpacity>
-      </View>
+          {/* Content */}
+          <View style={styles.contentContainer}>
+            {/* Indicator */}
+            <View style={styles.indicatorContainer}>
+              {renderIndicator(step)}
+            </View>
+
+            {/* Text Content */}
+            <View style={styles.textContainer}>
+              <Text style={styles.welcomeText}>Welcome to</Text>
+              <View style={styles.titleContainer}>
+                <Text style={styles.highlightText}>Regena</Text>
+                <Text style={styles.normalText}>, your safe</Text>
+              </View>
+              <View style={styles.titleContainer}>
+                <Text style={styles.normalText}>space </Text>
+                <Text style={styles.highlightText}>for healing</Text>
+              </View>
+              <View style={styles.titleContainer}>
+                <Text style={styles.normalText}>and </Text>
+                <Text style={styles.highlightText}>growth</Text>
+              </View>
+            </View>
+
+            {/* Navigation */}
+            <View style={styles.navigationContainer}>
+              <TouchableOpacity onPress={() => router.replace("/login")}>
+                <Text style={styles.skipText}>Skip</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
+                <Ionicons name="arrow-forward" size={24} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
+
+      {step === 2 && (
+        <View style={{ flex: 1 }}>
+          {/* Image */}
+          <Image
+            source={{
+              uri: "https://s3-alpha-sig.figma.com/img/3889/ea36/ece839b525757ad1d479fe2a9d2bcdac?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=adYktrtu8KO6TqWNnXiUYjTkSsONfeL1sYwTuKtls4e6882XyjauIRVh1IFOBbFKCJ8y8~fQiAJlIxoS6pYyOoDcJz922EJpOG2G6lslYwapAvZrM9BqpHDPWDFS3825lc5RdrgLuzLRdbJZPE0HCdi-fYJbIeIGK9nXrAVwrOoydm4NzsNrf0nB44BeUfHxtuqAYw22uPGgX0REtSxDHc-Gr2XUdhCjXlJoQc4wvJmJDhuMzDKY6SDq2BpnKYcZC1u-9C6t2rcGlntbN7EellFzaYvd2tL41pZ11Z54cQ81OdSEZS~6lWFWEsaD6Wsd7SsLLjIVrQ5Mbiewbhx23w__",
+            }}
+            style={{ width: 680, height: "100%", flex: 3, alignSelf: "center" }}
+          />
+
+          {/* Content */}
+          <View style={styles.contentContainer}>
+            {/* Indicator */}
+            <View style={styles.indicatorContainer}>
+              {renderIndicator(step)}
+            </View>
+
+            {/* Text Content */}
+            <View style={styles.textContainer}>
+              <Text style={styles.welcomeText}>Welcome to</Text>
+              <View style={styles.titleContainer}>
+                <Text style={styles.highlightText}>Regena</Text>
+                <Text style={styles.normalText}>, your safe</Text>
+              </View>
+              <View style={styles.titleContainer}>
+                <Text style={styles.normalText}>space </Text>
+                <Text style={styles.highlightText}>for healing</Text>
+              </View>
+              <View style={styles.titleContainer}>
+                <Text style={styles.normalText}>and </Text>
+                <Text style={styles.highlightText}>growth</Text>
+              </View>
+            </View>
+
+            {/* Navigation */}
+            <View style={styles.navigationContainer}>
+              <TouchableOpacity onPress={() => router.replace("/login")}>
+                <Text style={styles.skipText}>Skip</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
+                <Ionicons name="arrow-forward" size={24} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
+
+      {step === 3 && (
+        <View style={{ flex: 1 }}>
+          {/* Image */}
+          <Image
+            source={{
+              uri: "https://s3-alpha-sig.figma.com/img/c42f/a200/13645dbce0fe6938bac595d3a8be9cea?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=M0s7axJtht7VKgUHUewYoj4gbuKTql49uilb50RDBRKRnn~j9-CZ0mgWGIdgc1soCJAFLLZsCuPO-hXU6LDYikhhY-24dXJ1zYBeAbw25YZ5sizEc0DzOjsvXom83R3Ms6ao8lgK5hAuLs1qTq1WWb0dV9PxEfRaP7u~wbfs7J2V~b5TBJqr2p5VXFVfNFAAD95Q1hrRXAsPqdSqkWn4PnuJ-IBjPEFlNoPQR0ZDqdqMEdbAF9MK7-pCZV0ezDxof~NuQvKfSXLmsQOIjQbS71C~aXC52Q4pOLF~SnpFPCJhJLAfFODHirjhccSISbugsIOTUh39MIDYVJbu2UPyHw__",
+            }}
+            style={{ width: "100%", height: "100%", flex: 3 }}
+          />
+
+          {/* Content */}
+          <View style={styles.contentContainer}>
+            {/* Indicator */}
+            <View style={styles.indicatorContainer}>
+              {renderIndicator(step)}
+            </View>
+
+            {/* Text Content */}
+            <View style={styles.textContainer}>
+              <Text style={styles.welcomeText}>Welcome to</Text>
+              <View style={styles.titleContainer}>
+                <Text style={styles.highlightText}>Regena</Text>
+                <Text style={styles.normalText}>, your safe</Text>
+              </View>
+              <View style={styles.titleContainer}>
+                <Text style={styles.normalText}>space </Text>
+                <Text style={styles.highlightText}>for healing</Text>
+              </View>
+              <View style={styles.titleContainer}>
+                <Text style={styles.normalText}>and </Text>
+                <Text style={styles.highlightText}>growth</Text>
+              </View>
+            </View>
+
+            {/* Navigation */}
+            <View style={styles.navigationContainer}>
+              <TouchableOpacity onPress={() => router.replace("/login")}>
+                <Text style={styles.skipText}>Skip</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
+                <Ionicons name="arrow-forward" size={24} color="#fff" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F5F5",
-    padding: 20,
-    justifyContent: "space-between",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  input: {
-    height: 50,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    marginBottom: 10,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: "#E5E5E5",
-  },
-  button: {
-    backgroundColor: "#14B8A6",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  orText: {
-    textAlign: "center",
-    marginVertical: 10,
-    color: "#AAAAAA",
-  },
-  googleButton: {
-    padding: 15,
     backgroundColor: "#fff",
-    borderRadius: 10,
+  },
+  contentContainer: {
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    borderCurve: "circular",
+    backgroundColor: "#fff",
+    position: "relative",
+    flex: 2,
+    paddingVertical: 50,
+    paddingHorizontal: 20,
+    justifyContent: "center",
+    marginTop: -40, // Memotong sedikit di bawah image
+  },
+  indicatorContainer: {
     flexDirection: "row",
-    gap: 10,
+    justifyContent: "center",
+    gap: 4,
+    paddingTop: 30,
+  },
+  textContainer: {
+    paddingTop: 20,
+  },
+  welcomeText: {
+    fontSize: 32,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  normalText: {
+    fontSize: 32,
+    fontWeight: "600",
+  },
+  highlightText: {
+    color: "#14B8A6",
+    fontSize: 32,
+    fontWeight: "600",
+  },
+  navigationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    paddingVertical: 30,
+    paddingHorizontal: 20,
+  },
+  skipText: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  nextButton: {
+    padding: 17,
+    backgroundColor: "#14B8A6",
+    borderRadius: 32,
+  },
+  stepContainer: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    alignContent: "center",
+    padding: 20,
   },
-  googleButtonText: {
-    fontSize: 16,
+  stepTitle: {
+    fontSize: 24,
+    marginVertical: 20,
   },
-  row: {
+  stepButtonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 13,
-    marginBottom: 23,
-  },
-  linkText: {
-    color: "#00A86B",
-    fontWeight: "bold",
+    width: "100%",
   },
 });
+
+export default OnboardingPage;

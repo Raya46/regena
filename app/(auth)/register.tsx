@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import SVGTopBar from "./_components/gradientTopBarSVG";
-import { useAuth } from "./hooks/useAuth";
+import SVGTopBar from "../_components/gradientTopBarSVG";
+import { useAuth } from "../_hooks/useAuth";
 
 export default function RegisterScreen() {
   const { fieldsRegister, setFieldsRegister, register, continueWithGoogle } =
@@ -29,7 +29,7 @@ export default function RegisterScreen() {
         <Ionicons
           name="arrow-back"
           size={20}
-          onPress={() => router.replace("/")}
+          onPress={() => router.replace("/login")}
           style={{ zIndex: 999, position: "relative" }}
         />
       </View>
@@ -107,7 +107,7 @@ export default function RegisterScreen() {
         </TouchableOpacity>
         <View style={styles.row}>
           <Text>Already have an account?</Text>
-          <TouchableOpacity onPress={() => router.replace("/")}>
+          <TouchableOpacity onPress={() => router.replace("/login")}>
             <Text style={styles.linkText}> Log in</Text>
           </TouchableOpacity>
         </View>
