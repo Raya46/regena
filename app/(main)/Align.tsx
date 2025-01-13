@@ -9,8 +9,10 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import useFetchAlign from "../_hooks/_alignHooks/useFetchAlign";
 
 const AlignPage = () => {
+  const { aligns } = useFetchAlign();
   const thoughts = [
     {
       id: "1",
@@ -64,13 +66,19 @@ const AlignPage = () => {
       </View>
 
       {/* Thought Cards */}
-      <FlatList
-        data={thoughts}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.listContainer}
-        showsVerticalScrollIndicator={false}
-      />
+      {aligns ? (
+        <FlatList
+          data={thoughts}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+        />
+      ) : (
+        <View>
+          <Text>no align</Text>
+        </View>
+      )}
 
       {/* Floating Add Button */}
       <TouchableOpacity
