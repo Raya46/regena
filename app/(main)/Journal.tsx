@@ -8,8 +8,10 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import useFetchJournal from "../_hooks/_journalHooks/useFetchJournal";
 
 const JournalPage = () => {
+  const { journals, isLoading, error } = useFetchJournal();
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -36,9 +38,9 @@ const JournalPage = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.dateSelector}
       >
-        <TouchableOpacity style={[styles.dateButton]}>
+        <TouchableOpacity style={styles.dateButton}>
           <Text style={[styles.dateText, styles.tanggalBold]}>17</Text>
-          <Text style={[styles.dateText]}>SUN</Text>
+          <Text style={styles.dateText}>SUN</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.dateButton, styles.selectedDateButton]}
@@ -46,36 +48,41 @@ const JournalPage = () => {
           <Text style={[styles.selectedDateText, styles.tanggalBold]}>18</Text>
           <Text style={[styles.selectedDateText]}>MON</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.dateButton]}>
+        <TouchableOpacity style={styles.dateButton}>
           <Text style={[styles.dateText, styles.tanggalBold]}>19</Text>
-          <Text style={[styles.dateText]}>TUE</Text>
+          <Text style={styles.dateText}>TUE</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.dateButton]}>
+        <TouchableOpacity style={styles.dateButton}>
           <Text style={[styles.dateText, styles.tanggalBold]}>20</Text>
-          <Text style={[styles.dateText]}>WED</Text>
+          <Text style={styles.dateText}>WED</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.dateButton]}>
+        <TouchableOpacity style={styles.dateButton}>
           <Text style={[styles.dateText, styles.tanggalBold]}>21</Text>
-          <Text style={[styles.dateText]}>THU</Text>
+          <Text style={styles.dateText}>THU</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.dateButton]}>
+        <TouchableOpacity style={styles.dateButton}>
           <Text style={[styles.dateText, styles.tanggalBold]}>22</Text>
-          <Text style={[styles.dateText]}>FRI</Text>
+          <Text style={styles.dateText}>FRI</Text>
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Journal Input */}
-      <View style={{ flex: 3, paddingHorizontal: 20, marginTop: 12 }}>
-        <TouchableOpacity
-          style={styles.journalInput}
-          onPress={() => router.push("/CreateJournal")}
-        >
-          <Text style={styles.journalText}>
-            Tell us what’s on your mind today. Writing it down helps guide you
-            toward healing.
-          </Text>
-        </TouchableOpacity>
-      </View>
+      {journals ? (
+        <View>
+          <Text>list journal</Text>
+        </View>
+      ) : (
+        <View style={{ flex: 3, paddingHorizontal: 20, marginTop: 12 }}>
+          <TouchableOpacity
+            style={styles.journalInput}
+            onPress={() => router.push("/CreateJournal")}
+          >
+            <Text style={styles.journalText}>
+              Tell us what’s on your mind today. Writing it down helps guide you
+              toward healing.
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };

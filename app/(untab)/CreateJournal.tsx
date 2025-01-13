@@ -8,8 +8,14 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import useAddJournal from "../_hooks/_journalHooks/useAddJournal";
+import useFetchJournal from "../_hooks/_journalHooks/useFetchJournal";
 
 const CreateJournal = () => {
+  const { refetch } = useFetchJournal();
+
+  const { fields, setFields, isSubmiting, error, handleAddJournal } =
+    useAddJournal(refetch);
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -17,21 +23,27 @@ const CreateJournal = () => {
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.saveButton}>Save</Text>
+        <Text style={styles.saveButton} onPress={handleAddJournal}>
+          Save
+        </Text>
       </View>
 
       {/* Date */}
       <Text style={styles.dateText}>SUN • 17 NOV 2024</Text>
 
       {/* Title */}
-      <TextInput style={styles.titleInput} placeholder="Title" />
+      <TextInput
+        style={styles.titleInput}
+        placeholder="Title"
+        onChangeText={(text) => setFields({ ...fields, title: text })}
+      />
 
       {/* Content */}
       <TextInput
         style={styles.contentInput}
         placeholder="Start writing..."
         multiline
-        value="I didn’t eat lunch today. I just couldn’t bring myself to do it. I feel so disgusting when I think about food. The thought of gaining weight is terrifying. I feel like I’m trapped in this endless cycle of not being good enough."
+        onChangeText={(text) => setFields({ ...fields, content: text })}
       />
 
       {/* Microphone Button */}

@@ -15,7 +15,7 @@ export const useAuth = () => {
     username: "",
     email: "",
     dateOfBirth: "",
-    region: "",
+    phoneNumber: "",
     password: "",
   });
 
@@ -72,7 +72,7 @@ export const useAuth = () => {
         username: usernameFromField,
         email: fieldsRegister.email,
         dateOfBirth: fieldsRegister.dateOfBirth,
-        region: fieldsRegister.region,
+        phoneNumber: fieldsRegister.phoneNumber,
         password: fieldsRegister.password,
       };
       const response = await axios.post(url, registrationData);
@@ -86,7 +86,7 @@ export const useAuth = () => {
         username: "",
         email: "",
         dateOfBirth: "",
-        region: "",
+        phoneNumber: "",
         password: "",
       });
       router.replace({ pathname: page });

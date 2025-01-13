@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { useAuth } from "../_hooks/useAuth";
+import { useAuth } from "../_hooks/_authHooks/useAuth";
 
 const ProfilePage = () => {
   const { logout } = useAuth();

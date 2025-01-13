@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import SVGTopBar from "../_components/gradientTopBarSVG";
-import { useAuth } from "../_hooks/useAuth";
+import { useAuth } from "../_hooks/_authHooks/useAuth";
 
 export default function RegisterScreen() {
   const { fieldsRegister, setFieldsRegister, register, continueWithGoogle } =
@@ -79,10 +79,10 @@ export default function RegisterScreen() {
         />
         <TextInput
           style={styles.input}
-          placeholder="region"
+          placeholder="phoneNumber"
           placeholderTextColor="#9CA3AF"
           onChangeText={(text) =>
-            setFieldsRegister({ ...fieldsRegister, region: text })
+            setFieldsRegister({ ...fieldsRegister, phoneNumber: text })
           }
         />
         <TextInput

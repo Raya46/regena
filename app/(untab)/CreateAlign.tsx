@@ -10,7 +10,7 @@ import {
   Image,
 } from "react-native";
 
-const App = () => {
+const CreateAlign = () => {
   const [feeling, setFeeling] = useState("");
   const [change, setChange] = useState(false);
 
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default CreateAlign;

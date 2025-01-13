@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import SVGTopBar from "../_components/gradientTopBarSVG";
-import { useAuth } from "../_hooks/useAuth";
+import { useAuth } from "../_hooks/_authHooks/useAuth";
 
 export default function LoginScreen() {
   const { fields, setFields, login, continueWithGoogle } = useAuth();
