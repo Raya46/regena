@@ -17,7 +17,7 @@ export default function useAddJournal(onSuccess: () => void) {
       await axios.post("http://localhost:2000/journals", fields);
       onSuccess();
     } catch (error) {
-      setError("something went wrong");
+      setError("error add journal");
     } finally {
       setIsSubmiting(false);
     }

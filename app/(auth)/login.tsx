@@ -45,7 +45,11 @@ export default function LoginScreen() {
             <Text style={styles.linkText}>Forgot Password?</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        {/* <TouchableOpacity style={styles.button} onPress={handleLogin}> */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.replace("/Home")}
+        >
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <Text style={styles.orText}>Or</Text>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -6,16 +6,31 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import useAddJournal from "../_hooks/_journalHooks/useAddJournal";
 import useFetchJournal from "../_hooks/_journalHooks/useFetchJournal";
+import useUpdateJournal from "../_hooks/_journalHooks/useUpdateJournal";
 
-const CreateJournal = () => {
+const UpdateJournal = () => {
   const { refetch } = useFetchJournal();
+  const { id, title, content, createdAt } = useLocalSearchParams<{
+    id: string;
+    title: string;
+    content: string;
+    createdAt: string;
+  }>();
 
-  const { fields, setFields, isSubmiting, error, handleAddJournal } =
-    useAddJournal(refetch);
+  const { fields, setFields, isSubmiting, error, handleUpdateJournal } =
+    useUpdateJournal(refetch);
+
+  // Set initial values when component mounts
+  useEffect(() => {
+    setFields({
+      title: title || "",
+      content: content || "",
+    });
+  }, [title, content]);
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -23,18 +38,24 @@ const CreateJournal = () => {
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.saveButton} onPress={handleAddJournal}>
-          Save
-        </Text>
+        <TouchableOpacity
+          onPress={() => handleUpdateJournal(parseInt(id))}
+          disabled={isSubmiting}
+        >
+          <Text style={styles.saveButton}>
+            {isSubmiting ? "Saving..." : "Save"}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       {/* Date */}
-      <Text style={styles.dateText}>{Date.now().toLocaleString()}</Text>
+      <Text style={styles.dateText}>{createdAt}</Text>
 
       {/* Title */}
       <TextInput
         style={styles.titleInput}
         placeholder="Title"
+        value={fields.title}
         onChangeText={(text) => setFields({ ...fields, title: text })}
       />
 
@@ -43,8 +64,12 @@ const CreateJournal = () => {
         style={styles.contentInput}
         placeholder="Start writing..."
         multiline
+        value={fields.content}
         onChangeText={(text) => setFields({ ...fields, content: text })}
       />
+
+      {/* Error Handling */}
+      {error && <Text style={styles.errorText}>{error}</Text>}
 
       {/* Microphone Button */}
       <View style={styles.micContainer}>
@@ -108,6 +133,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  errorText: {
+    color: "red",
+    textAlign: "center",
+    marginTop: 10,
+  },
 });
 
-export default CreateJournal;
+export default UpdateJournal;

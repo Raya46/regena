@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -8,14 +8,49 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import useAddJournal from "../_hooks/_journalHooks/useAddJournal";
-import useFetchJournal from "../_hooks/_journalHooks/useFetchJournal";
 
-const CreateJournal = () => {
-  const { refetch } = useFetchJournal();
+let date = new Date().toLocaleString();
 
-  const { fields, setFields, isSubmiting, error, handleAddJournal } =
-    useAddJournal(refetch);
+// Definisikan props untuk komponen
+interface JournalFormProps {
+  mode: "create" | "update";
+  initialTitle?: string;
+  initialContent?: string;
+  createdAt?: string;
+  onSubmit: () => void;
+  isSubmiting: boolean;
+  fields: {
+    title: string;
+    content: string;
+  };
+  setFields: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      content: string;
+    }>
+  >;
+}
+
+const JournalForm: React.FC<JournalFormProps> = ({
+  mode,
+  initialTitle = "",
+  initialContent = "",
+  createdAt = date,
+  onSubmit,
+  isSubmiting,
+  fields,
+  setFields,
+}) => {
+  // Set initial values for update mode
+  useEffect(() => {
+    if (mode === "update") {
+      setFields({
+        title: initialTitle,
+        content: initialContent,
+      });
+    }
+  }, [mode, initialTitle, initialContent]);
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -23,18 +58,21 @@ const CreateJournal = () => {
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.saveButton} onPress={handleAddJournal}>
-          Save
-        </Text>
+        <TouchableOpacity onPress={onSubmit} disabled={isSubmiting}>
+          <Text style={styles.saveButton}>
+            {isSubmiting ? "Saving..." : "Save"}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       {/* Date */}
-      <Text style={styles.dateText}>{Date.now().toLocaleString()}</Text>
+      <Text style={styles.dateText}>{createdAt}</Text>
 
       {/* Title */}
       <TextInput
         style={styles.titleInput}
         placeholder="Title"
+        value={mode === "update" ? fields.title : undefined}
         onChangeText={(text) => setFields({ ...fields, title: text })}
       />
 
@@ -43,6 +81,7 @@ const CreateJournal = () => {
         style={styles.contentInput}
         placeholder="Start writing..."
         multiline
+        value={mode === "update" ? fields.content : undefined}
         onChangeText={(text) => setFields({ ...fields, content: text })}
       />
 
@@ -110,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateJournal;
+export default JournalForm;

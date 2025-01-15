@@ -9,26 +9,31 @@ import {
   Image,
 } from "react-native";
 import useFetchJournal from "../_hooks/_journalHooks/useFetchJournal";
+import { Ionicons } from "@expo/vector-icons";
 
 const JournalPage = () => {
   const { journals, isLoading, error } = useFetchJournal();
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={false}
+    >
+      {/* Image dengan fixed height */}
+      <View style={styles.imageContainer}>
+        <Image
+          source={{
+            uri: "https://s3-alpha-sig.figma.com/img/fc27/a3a5/26b969b0a4bbce94efdb3f9f0d4eb42d?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Hj-SGD9b6N1sylb8OHf-QREzv5RIPKPFFewtCj34NKqeG~NZZhS4LsB9CyDLEEOYtDGMLw6PvSc3-ZsTbSphMV5k4PORQcBcLN~oSJii-HPoQlgJ4PuEKni5WK8Vg4JMeSMi3tcJQl70v7N0cDOAR--Dx0gfhJSHRNrha0ILaa3bdZobC6btBHUGeXBbNo0CqSGxPGY34zyIs5y01GAsE3goHwJKOKgbfsdzCkt~9MgrPkoqC60eNC1eXf2Ua3lSi4SGaxRLSJCo1zNfptMQGwRB9p82iuk6r8m9fqTe5h5mhEA~DTWC32Deeeh0OG5SEG4Kd2bLA5oimh4Wwq6pqw__",
+          }}
+          style={styles.headerImage}
+        />
+      </View>
+
       {/* Header */}
-      <Image
-        source={{
-          uri: "https://s3-alpha-sig.figma.com/img/fc27/a3a5/26b969b0a4bbce94efdb3f9f0d4eb42d?Expires=1736726400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=GOyUoM76HLmW3mVO7S-e0R0zVSzPYLiCp0Trydq6Sd2l~CentA~eDeuZ7aeNUwfcYcsCO3rT5WeGr-8hYTa2AgvtpxRPijFQiu0-874jI2l8QSZdu6E2GDR7LBD0lb2JtTbgeAVRem0QyBPEDXPHZ~NZsvOp0Zoat30fnZtp3WM2mDsaWVQSgnTvWI5ves0jyfq5gw00pNX2LRID4Rl0066DfydTW-rAxDX-lYcpF3~eu4JW~Ng~gtkHxu0VjzSwqcmFo9NQKgjG6JDo~6XgsPUbg2rLGvlkCttxwPNAJ60bLY6y0BUax3ylqSPAI0x50LifZI2orYH9BYafDvVyrQ__",
-        }}
-        style={{
-          width: "100%",
-          height: 100,
-          flex: 2,
-        }}
-      />
       <View style={styles.header}>
         <Text style={styles.headerText}>How are you feeling today?</Text>
         <Text style={styles.subHeaderText}>
-          It’s okay to feel however you’re feeling
+          It's okay to feel however you're feeling
         </Text>
       </View>
 
@@ -66,24 +71,71 @@ const JournalPage = () => {
         </TouchableOpacity>
       </ScrollView>
 
-      {journals ? (
+      {/* Journal Content */}
+      {false ? (
         <View>
-          <Text>list journal</Text>
+          {journals.map((value, index) => (
+            <TouchableOpacity
+              style={styles.journalContainer}
+              onPress={() =>
+                router.push({
+                  pathname: "/JournalAction",
+                  params: {
+                    id: value.id,
+                    title: value.title,
+                    content: value.content,
+                    mode: "update",
+                  },
+                })
+              }
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: "#9CA3AF", fontSize: 14 }}>
+                  {value.date}
+                </Text>
+                <Text style={{ color: "#9CA3AF", fontSize: 14 }}>
+                  {value.date}
+                </Text>
+              </View>
+              <Text style={{ color: "#111827", fontSize: 16, fontWeight: 700 }}>
+                {value.title}
+              </Text>
+              <Text style={{ fontSize: 14, color: "#6B7280" }}>
+                {value.content}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
       ) : (
-        <View style={{ flex: 3, paddingHorizontal: 20, marginTop: 12 }}>
+        <View style={styles.emptyJournalContainer}>
           <TouchableOpacity
             style={styles.journalInput}
-            onPress={() => router.push("/CreateJournal")}
+            onPress={() =>
+              router.push({
+                pathname: "/JournalAction",
+                params: { mode: "create" },
+              })
+            }
           >
-            <Text style={styles.journalText}>
-              Tell us what’s on your mind today. Writing it down helps guide you
-              toward healing.
-            </Text>
+            <View
+              style={{ flexDirection: "row", gap: 12, alignItems: "center" }}
+            >
+              <Ionicons name="paper-plane-outline" size={24} color="#6B7280" />
+              <Text style={styles.journalText}>
+                Tell us what's on your mind today. Writing it down helps guide
+                you toward healing.
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -92,12 +144,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F9FF",
   },
+  scrollContent: {
+    // Tambahkan paddingBottom untuk memastikan konten dapat di-scroll penuh
+    paddingBottom: 100,
+  },
+  imageContainer: {
+    width: "100%",
+    height: 200, // Tetapkan tinggi fixed
+  },
+  headerImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover", // Pastikan gambar menutupi area dengan baik
+  },
   header: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
     paddingHorizontal: 20,
-    paddingTop: 10,
+    paddingTop: 15,
   },
   headerText: {
     fontSize: 24,
@@ -153,7 +215,19 @@ const styles = StyleSheet.create({
   },
   journalText: {
     color: "#888",
-    fontSize: 16,
+    fontSize: 14,
+  },
+  emptyJournalContainer: {
+    flex: 3,
+    paddingHorizontal: 20,
+    marginTop: 12,
+  },
+  journalContainer: {
+    backgroundColor: "#fff",
+    borderRadius: 24,
+    padding: 20,
+    marginHorizontal: 20,
+    gap: 8,
   },
 });
 
