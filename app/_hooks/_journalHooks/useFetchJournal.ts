@@ -1,3 +1,4 @@
+import API from "@/app/_constant/API";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ export default function useFetchJournal() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://localhost:2000/journals");
+      const response = await axios.get(`${API}/journals`);
       const data = response.data.journals;
       setJournals(data);
     } catch (error) {

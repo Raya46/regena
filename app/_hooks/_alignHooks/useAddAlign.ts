@@ -1,3 +1,4 @@
+import API from "@/app/_constant/API";
 import axios from "axios";
 import { useState } from "react";
 
@@ -14,7 +15,7 @@ export default function useAddAlign(onSuccess: () => void) {
     setIsSubmiting(true);
     setError(null);
     try {
-      await axios.post("http://localhost:2000/aligns", fields);
+      await axios.post(`${API}/aligns`, fields);
       onSuccess();
     } catch (error) {
       setError("something went wrong");

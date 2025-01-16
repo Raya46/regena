@@ -1,3 +1,4 @@
+import API from "@/app/_constant/API";
 import axios from "axios";
 import { useState } from "react";
 
@@ -19,7 +20,7 @@ export default function useUpdateJournal(onSuccess: () => void) {
     setIsSubmiting(true);
     setError(null);
     try {
-      await axios.put(`http://localhost:2000/journals/${id}`, fields);
+      await axios.put(`${API}/journals/${id}`, fields);
       onSuccess();
     } catch (error) {
       setError("Error updating journal");

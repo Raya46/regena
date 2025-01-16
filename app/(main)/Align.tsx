@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,50 +10,30 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import useFetchAlign from "../_hooks/_alignHooks/useFetchAlign";
+import Loading from "../_components/Loading";
+import ErrorComp from "../_components/Error";
+import AlignCard, { AlignValue } from "../_components/AlignCard";
 
 const AlignPage = () => {
-  const { aligns } = useFetchAlign();
-  const thoughts = [
-    {
-      id: "1",
-      negative: "I’m never good enough.",
-      positive:
-        "I am learning and growing every day, and I’m proud of my progress.",
-    },
-    {
-      id: "2",
-      negative: "I can’t control my eating habits.",
-      positive:
-        "I’m learning to nourish my body and take control one step at a time.",
-    },
-    {
-      id: "3",
-      negative: "I’m too fat. I need to lose weight to be worthy of love.",
-      positive:
-        "My body is worthy of love just as it is. I am beautiful in every shape and size.",
-    },
-  ];
+  const { aligns, isLoading, error, refetch } = useFetchAlign();
+  const [selectedIcons, setSelectedIcons] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-  const renderItem = ({ item }: any) => (
-    <View style={styles.card}>
-      <Text style={styles.negativeText}>{item.negative}</Text>
-      <View style={styles.positiveContainer}>
-        <Ionicons
-          name="happy-outline"
-          size={24}
-          color="#00A398"
-          style={styles.icon}
-        />
-        <Text style={styles.positiveText}>{item.positive}</Text>
-        <Ionicons
-          name="notifications-outline"
-          size={20}
-          color="#B0B0B0"
-          style={styles.notificationIcon}
-        />
-      </View>
-    </View>
-  );
+  const toggleIconColor = (id: string, iconType: "notification") => {
+    setSelectedIcons((prev) => ({
+      ...prev,
+      [`${id}_${iconType}`]: !prev[`${id}_${iconType}`],
+    }));
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <ErrorComp error={error} reload={refetch} />;
+  }
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -68,9 +48,17 @@ const AlignPage = () => {
       {/* Thought Cards */}
       {aligns ? (
         <FlatList
-          data={thoughts}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          data={aligns}
+          renderItem={({ item }) => (
+            <AlignCard
+              item={item}
+              iconColor={
+                selectedIcons[`${item.id}_notification`] ? "#FF6347" : "#B0B0B0"
+              }
+              toggleIconColor={toggleIconColor(item.id, "notification")}
+            />
+          )}
+          keyExtractor={(item: AlignValue) => item.id}
           contentContainerStyle={styles.listContainer}
           showsVerticalScrollIndicator={false}
         />
@@ -113,39 +101,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingBottom: 100,
-  },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    marginBottom: 15,
-    overflow: "hidden",
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 2,
-  },
-  negativeText: {
-    padding: 15,
-    fontSize: 14,
-    color: "#000",
-  },
-  positiveContainer: {
-    backgroundColor: "#E7FAF8",
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 15,
-  },
-  positiveText: {
-    flex: 1,
-    fontSize: 14,
-    color: "#00A398",
-    marginLeft: 10,
-  },
-  icon: {
-    marginRight: 10,
-  },
-  notificationIcon: {
-    marginLeft: 10,
   },
   addButton: {
     position: "absolute",

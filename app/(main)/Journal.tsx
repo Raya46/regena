@@ -1,4 +1,3 @@
-import { router } from "expo-router";
 import React from "react";
 import {
   View,
@@ -7,12 +6,26 @@ import {
   StyleSheet,
   ScrollView,
   Image,
+  FlatList,
 } from "react-native";
-import useFetchJournal from "../_hooks/_journalHooks/useFetchJournal";
+import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import useFetchJournal from "../_hooks/_journalHooks/useFetchJournal";
+import Loading from "../_components/Loading";
+import ErrorComp from "../_components/Error";
+import JournalCard, { JournalValue } from "../_components/JournalCard";
 
 const JournalPage = () => {
-  const { journals, isLoading, error } = useFetchJournal();
+  const { journals, isLoading, error, refetch } = useFetchJournal();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <ErrorComp error={error} reload={refetch} />;
+  }
+
   return (
     <ScrollView
       style={styles.container}
@@ -20,6 +33,7 @@ const JournalPage = () => {
       showsVerticalScrollIndicator={false}
     >
       {/* Image dengan fixed height */}
+
       <View style={styles.imageContainer}>
         <Image
           source={{
@@ -72,46 +86,16 @@ const JournalPage = () => {
       </ScrollView>
 
       {/* Journal Content */}
-      {false ? (
-        <View>
-          {journals.map((value, index) => (
-            <TouchableOpacity
-              style={styles.journalContainer}
-              onPress={() =>
-                router.push({
-                  pathname: "/JournalAction",
-                  params: {
-                    id: value.id,
-                    title: value.title,
-                    content: value.content,
-                    mode: "update",
-                  },
-                })
-              }
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ color: "#9CA3AF", fontSize: 14 }}>
-                  {value.date}
-                </Text>
-                <Text style={{ color: "#9CA3AF", fontSize: 14 }}>
-                  {value.date}
-                </Text>
-              </View>
-              <Text style={{ color: "#111827", fontSize: 16, fontWeight: 700 }}>
-                {value.title}
-              </Text>
-              <Text style={{ fontSize: 14, color: "#6B7280" }}>
-                {value.content}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+      {journals && journals.length > 0 ? (
+        <FlatList
+          data={journals}
+          renderItem={({ item }: { item: JournalValue }) => (
+            <JournalCard item={item} />
+          )}
+          keyExtractor={(item: JournalValue) => item.id}
+          contentContainerStyle={styles.listContainer}
+          showsVerticalScrollIndicator={false}
+        />
       ) : (
         <View style={styles.emptyJournalContainer}>
           <TouchableOpacity
@@ -123,9 +107,7 @@ const JournalPage = () => {
               })
             }
           >
-            <View
-              style={{ flexDirection: "row", gap: 12, alignItems: "center" }}
-            >
+            <View style={styles.emptyJournalContent}>
               <Ionicons name="paper-plane-outline" size={24} color="#6B7280" />
               <Text style={styles.journalText}>
                 Tell us what's on your mind today. Writing it down helps guide
@@ -227,7 +209,34 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     padding: 20,
     marginHorizontal: 20,
+    marginBottom: 12,
     gap: 8,
+  },
+  journalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  dateText2: {
+    color: "#9CA3AF",
+    fontSize: 14,
+  },
+  titleText: {
+    color: "#111827",
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  contentText: {
+    fontSize: 14,
+    color: "#6B7280",
+  },
+  emptyJournalContent: {
+    flexDirection: "row",
+    gap: 12,
+    alignItems: "center",
+  },
+  listContainer: {
+    paddingBottom: 100,
   },
 });
 
