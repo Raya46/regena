@@ -12,27 +12,29 @@ import Svg, {
 
 const SVGTopBar = (props: SvgProps) => (
   <Svg
-    style={{ position: "absolute", left: 0, top: 0 }}
-    viewBox="0 0 390 150"
+    style={{ position: "absolute" }}
+    viewBox="0 0 390 275"
+    width={400}
+    height={275}
     fill="none"
     {...props}
   >
-    <G opacity={0.7}>
-      <G filter="url(#filter0_f_4_2046)">
-        <Path
-          d="M-229.73 203.177C-229.73 203.177 -128.114 -87.9361 192.5 -0.554565C513.114 86.8269 614.73 -204.286 614.73 -204.286"
-          stroke="#14B8A6"
-          strokeWidth={115.808}
-        />
-      </G>
-      <G filter="url(#filter1_f_4_2046)">
-        <Path
-          d="M-229.73 203.177C-229.73 203.177 -128.114 -87.9361 192.5 -0.554565C513.114 86.8269 614.73 -204.286 614.73 -204.286"
-          stroke="url(#paint0_radial_4_2046)"
-          strokeWidth={115.808}
-        />
-      </G>
+    {/* <G opacity={0.7}> */}
+    <G filter="url(#filter0_f_4_2046)">
+      <Path
+        d="M-229.73 203.177C-229.73 203.177 -128.114 -87.9361 192.5 -0.554565C513.114 86.8269 614.73 -204.286 614.73 -204.286"
+        stroke="#14B8A6"
+        strokeWidth={115.808}
+      />
     </G>
+    <G filter="url(#filter1_f_4_2046)">
+      <Path
+        d="M-229.73 203.177C-229.73 203.177 -128.114 -87.9361 192.5 -0.554565C513.114 86.8269 614.73 -204.286 614.73 -204.286"
+        stroke="url(#paint0_radial_4_2046)"
+        strokeWidth={115.808}
+      />
+    </G>
+    {/* </G> */}
     <Defs>
       <Filter
         id="filter0_f_4_2046"
@@ -41,7 +43,7 @@ const SVGTopBar = (props: SvgProps) => (
         width="961.468"
         height="524.471"
         filterUnits="userSpaceOnUse"
-        colorInterpolationFilters="sRGB"
+        color-interpolation-filters="sRGB"
       >
         <FeGaussianBlur stdDeviation="25" />
       </Filter>
@@ -52,7 +54,7 @@ const SVGTopBar = (props: SvgProps) => (
         width="961.468"
         height="524.471"
         filterUnits="userSpaceOnUse"
-        colorInterpolationFilters="sRGB"
+        color-interpolation-filters="sRGB"
       >
         <FeGaussianBlur stdDeviation="25" />
       </Filter>

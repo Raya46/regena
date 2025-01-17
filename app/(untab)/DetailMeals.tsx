@@ -16,7 +16,6 @@ const DetailMeals = () => {
   const [recipeData, setRecipeData] = useState<any>(null);
 
   useEffect(() => {
-    console.log(params);
     if (params.recipe) {
       try {
         const parsed = JSON.parse(params.recipe as string);
@@ -62,7 +61,7 @@ const DetailMeals = () => {
           <Text style={styles.description}>{params.description as string}</Text>
         </BlurView>
       </View>
-
+      <View style={{ paddingVertical: 12 }}></View>
       {/* Ingredients Section */}
       <View style={styles.section}>
         <TouchableOpacity
@@ -149,8 +148,9 @@ const styles = StyleSheet.create({
   },
   imageOverlay: {
     padding: 15,
-    borderRadius: 12,
-    width: "80%",
+    borderRadius: 30,
+    maxWidth: "100%",
+    width: 320,
     position: "absolute",
     top: 190,
     zIndex: 10,

@@ -7,23 +7,33 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import SVGTopBar from "../_components/gradientTopBarSVG";
 import { useAuth } from "../_hooks/_authHooks/useAuth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import API from "@/_constant/API";
 
 export default function LoginScreen() {
   const { fields, setFields, login, continueWithGoogle } = useAuth();
   const handleLogin = async () => {
-    await login("http://localhost:2000/login", "/Home");
+    await login(`${API}/login`, "/Home");
   };
   const handleContinueWithGoogle = async () => {
-    await continueWithGoogle("http://localhost:2000/auth/google");
+    await continueWithGoogle(`${API}/auth/google`);
+  };
+  const getToken = async () => {
+    const token = await AsyncStorage.getItem("token");
+    const name = await AsyncStorage.getItem("username");
+    const email = await AsyncStorage.getItem("email");
+    console.log(token, name, email);
   };
   return (
     <View style={styles.container}>
       <SVGTopBar />
       <View style={{ flex: 5, justifyContent: "center" }}>
         <Text style={styles.title}>Sign in to your Account</Text>
+        <Button onPress={getToken} title="tes" />
         <TextInput
           style={styles.input}
           placeholder="Enter your email"
@@ -45,11 +55,11 @@ export default function LoginScreen() {
             <Text style={styles.linkText}>Forgot Password?</Text>
           </TouchableOpacity>
         </View>
-        {/* <TouchableOpacity style={styles.button} onPress={handleLogin}> */}
-        <TouchableOpacity
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          {/* <TouchableOpacity
           style={styles.button}
           onPress={() => router.replace("/Home")}
-        >
+        > */}
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <Text style={styles.orText}>Or</Text>
@@ -85,7 +95,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F5F5",
     padding: 20,
-    justifyContent: "space-between",
   },
   title: {
     fontSize: 24,

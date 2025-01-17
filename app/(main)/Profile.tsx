@@ -9,11 +9,12 @@ import {
   ScrollView,
 } from "react-native";
 import { useAuth } from "../_hooks/_authHooks/useAuth";
+import API from "@/_constant/API";
 
 const ProfilePage = () => {
   const { logout } = useAuth();
   const handleLogout = async () => {
-    await logout("http://localhost:2000/logout", "/");
+    await logout(`${API}/logout`, "/login");
   };
   return (
     <ScrollView style={styles.container}>

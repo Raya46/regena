@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import * as Linking from "expo-linking";
 
 export const useAuth = () => {
   const [fields, setFields] = useState({
@@ -14,7 +15,7 @@ export const useAuth = () => {
     lastName: "",
     username: "",
     email: "",
-    dateOfBirth: "",
+    dateOfBirth: null,
     phoneNumber: "",
     password: "",
   });
@@ -44,20 +45,28 @@ export const useAuth = () => {
   };
 
   const continueWithGoogle = async (url: string) => {
-    try {
-      const response = await axios.get(url);
-      const token = response.data.token;
-      const username = response.data.googleUser.name;
-      const email = response.data.googleUser.email;
-      await saveToken(token, username, email);
-    } catch (error) {
-      console.log(error);
-    }
+    Linking.openURL(url);
+    Linking.addEventListener("url", (event) => {
+      const parsed = new URL(event.url); // URL yang diterima setelah redirect
+      const token = parsed.searchParams.get("token");
+      const username = parsed.searchParams.get("username");
+      const email = parsed.searchParams.get("email");
+
+      if (token && username && email) {
+        saveToken(token, username, email);
+        router.replace("/Home");
+      }
+    });
   };
 
   const logout = async (url: string, page: any) => {
     try {
-      await axios.post(url);
+      const token = await AsyncStorage.getItem("token");
+      await axios.post(
+        url,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       await AsyncStorage.multiRemove(["token", "username", "email"]);
       router.replace({ pathname: page });
     } catch (error) {
@@ -71,8 +80,8 @@ export const useAuth = () => {
       const registrationData = {
         username: usernameFromField,
         email: fieldsRegister.email,
-        dateOfBirth: fieldsRegister.dateOfBirth,
-        phoneNumber: fieldsRegister.phoneNumber,
+        date_of_birth: fieldsRegister.dateOfBirth,
+        phone_number: fieldsRegister.phoneNumber,
         password: fieldsRegister.password,
       };
       const response = await axios.post(url, registrationData);
@@ -85,7 +94,7 @@ export const useAuth = () => {
         lastName: "",
         username: "",
         email: "",
-        dateOfBirth: "",
+        dateOfBirth: null,
         phoneNumber: "",
         password: "",
       });

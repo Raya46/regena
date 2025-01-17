@@ -1,4 +1,4 @@
-import API from "@/app/_constant/API";
+import API from "@/_constant/API";
 import axios from "axios";
 import { useState } from "react";
 

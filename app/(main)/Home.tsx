@@ -3,7 +3,6 @@ import {
   View,
   Text,
   ScrollView,
-  Image,
   TouchableOpacity,
   StyleSheet,
   FlatList,
@@ -14,7 +13,7 @@ import {
 } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import MealsCard from "../_components/MealsCard";
-import { meals } from "../_constant/ListMeals";
+import { meals } from "../../_constant/ListMeals";
 
 const HomePage = () => {
   const [activeSection, setActiveSection] = useState("progress");
@@ -44,7 +43,10 @@ const HomePage = () => {
           style={[
             styles.progressBar,
             {
-              width: "20%",
+              maxWidth: "100%",
+              maxHeight: "100%",
+              width: 100,
+              height: 10,
               backgroundColor: "#2DD4BF",
             },
           ]}
@@ -57,7 +59,10 @@ const HomePage = () => {
           style={[
             styles.progressBar,
             {
+              maxWidth: "100%",
+              maxHeight: "100%",
               width: "70%",
+              height: 10,
               backgroundColor: "#22D3EE",
             },
           ]}
@@ -70,7 +75,10 @@ const HomePage = () => {
           style={[
             styles.progressBar,
             {
+              maxWidth: "100%",
+              maxHeight: "100%",
               width: "30%",
+              height: 10,
               backgroundColor: "#818CF8",
             },
           ]}
@@ -83,7 +91,10 @@ const HomePage = () => {
           style={[
             styles.progressBar,
             {
+              maxWidth: "100%",
+              maxHeight: "100%",
               width: "80%",
+              height: 10,
               backgroundColor: "#A78BFA",
             },
           ]}
@@ -136,14 +147,9 @@ const HomePage = () => {
             ]}
           />
         </View>
-
-        <FlatList
-          data={meals}
-          renderItem={({ item }) => <MealsCard item={item} />}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.listContainer}
-          showsVerticalScrollIndicator={false}
-        />
+        {meals.map((value, index) => (
+          <MealsCard item={value} key={index} />
+        ))}
       </ScrollView>
     </GestureHandlerRootView>
   );
@@ -212,9 +218,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   progressBar: {
-    height: "100%",
-    marginBottom: 8,
-    padding: 20,
+    padding: 25,
     justifyContent: "center",
     backgroundColor: "#2DD4BF",
     borderTopLeftRadius: 8,
@@ -226,6 +230,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 12,
     position: "absolute",
+    left: 10,
   },
   resetContainer: {
     backgroundColor: "#F0FFF4",
@@ -267,35 +272,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     padding: 8,
-  },
-  mealCard: {
-    backgroundColor: "#FFFFFF",
-    padding: 16,
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    flexDirection: "row",
-  },
-  mealImage: {
-    width: "100%",
-    height: "100%",
-    flex: 1,
-    borderRadius: 8,
-    marginBottom: 8,
-  },
-  mealName: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#2D3748",
-    marginBottom: 4,
-    flex: 2,
-  },
-  mealDescription: {
-    fontSize: 14,
-    color: "#718096",
-    flex: 2,
   },
 });
 

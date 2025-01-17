@@ -11,7 +11,7 @@ import {
 import MealsCard from "../_components/MealsCard";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
-import { meals } from "../_constant/ListMeals";
+import { meals } from "../../_constant/ListMeals";
 
 const MealsPage = () => {
   return (

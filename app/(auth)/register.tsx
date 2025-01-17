@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,15 +11,39 @@ import {
 } from "react-native";
 import SVGTopBar from "../_components/gradientTopBarSVG";
 import { useAuth } from "../_hooks/_authHooks/useAuth";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { format } from "date-fns";
 
 export default function RegisterScreen() {
   const { fieldsRegister, setFieldsRegister, register, continueWithGoogle } =
     useAuth();
   const handleRegister = async () => {
-    await register("http://localhost:2000/register", "/Home");
+    await register(
+      "https://bc59-125-160-186-11.ngrok-free.app/register",
+      "/Home"
+    );
   };
   const handleContinueWithGoogle = async () => {
     await continueWithGoogle("http://localhost:2000/auth/google");
+  };
+  const [date, setDate] = useState<Date | null>(null);
+  const [picker, setPicker] = useState(false);
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    if (event.type === "set" && selectedDate) {
+      const currentDate = selectedDate;
+      setDate(currentDate);
+
+      const formattedDate = format(currentDate, "dd/MM/yyyy");
+
+      setFieldsRegister({
+        ...fieldsRegister,
+        dateOfBirth: formattedDate,
+      });
+
+      setPicker(false);
+    } else {
+      setPicker(false);
+    }
   };
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -73,10 +97,17 @@ export default function RegisterScreen() {
           style={styles.input}
           placeholder="DD/MM/YYYY"
           placeholderTextColor="#9CA3AF"
-          onChangeText={(text) =>
-            setFieldsRegister({ ...fieldsRegister, dateOfBirth: text })
-          }
+          onFocus={() => setPicker(true)}
+          value={date ? format(date, "dd/MM/yyyy") : ""}
+          editable={!picker}
         />
+        {picker && (
+          <DateTimePicker
+            mode="date"
+            value={date || new Date()}
+            onChange={handleDateChange}
+          />
+        )}
         <TextInput
           style={styles.input}
           placeholder="phoneNumber"
