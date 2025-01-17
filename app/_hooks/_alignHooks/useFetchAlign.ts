@@ -1,4 +1,5 @@
 import API from "@/_constant/API";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
@@ -11,7 +12,10 @@ export default function useFetchAlign() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API}/aligns`);
+      const token = await AsyncStorage.getItem("token");
+      const response = await axios.get(`${API}/aligns`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = response.data.aligns;
       setAligns(data);
     } catch (error) {

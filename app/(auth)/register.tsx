@@ -1,31 +1,27 @@
 import { Ionicons } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { format } from "date-fns";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
+  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
-  StyleSheet,
   TouchableOpacity,
-  ScrollView,
+  View,
 } from "react-native";
 import SVGTopBar from "../_components/gradientTopBarSVG";
-import { useAuth } from "../_hooks/_authHooks/useAuth";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { format } from "date-fns";
+import { useGoogleAuth } from "../_hooks/_authHooks/useGoogleAuth";
+import { useRegister } from "../_hooks/_authHooks/useRegister";
+import { useSave } from "../_hooks/_authHooks/useSave";
+import Loading from "../_components/Loading";
 
 export default function RegisterScreen() {
-  const { fieldsRegister, setFieldsRegister, register, continueWithGoogle } =
-    useAuth();
-  const handleRegister = async () => {
-    await register(
-      "https://bc59-125-160-186-11.ngrok-free.app/register",
-      "/Home"
-    );
-  };
-  const handleContinueWithGoogle = async () => {
-    await continueWithGoogle("http://localhost:2000/auth/google");
-  };
+  const { saveToLocal } = useSave();
+  const { register, isSubmiting, error, fieldsRegister, setFieldsRegister } =
+    useRegister(saveToLocal);
+  const { continueWithGoogle } = useGoogleAuth(saveToLocal);
   const [date, setDate] = useState<Date | null>(null);
   const [picker, setPicker] = useState(false);
   const handleDateChange = (event: any, selectedDate?: Date) => {
@@ -125,13 +121,17 @@ export default function RegisterScreen() {
             setFieldsRegister({ ...fieldsRegister, password: text })
           }
         />
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
+        {isSubmiting ? (
+          <Loading />
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={register}>
+            <Text style={styles.buttonText}>Register</Text>
+          </TouchableOpacity>
+        )}
         <Text style={styles.orText}>Or</Text>
         <TouchableOpacity
           style={styles.googleButton}
-          onPress={handleContinueWithGoogle}
+          onPress={continueWithGoogle}
         >
           <Ionicons name="logo-google" size={16} />
           <Text style={styles.googleButtonText}>Continue with Google</Text>
