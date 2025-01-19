@@ -15,6 +15,7 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions": ["INTERNET"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -36,7 +37,7 @@
           "backgroundColor": "#ffffff"
         }
       ]
-    ],
+        ],
     "experiments": {
       "typedRoutes": true
     }

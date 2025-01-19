@@ -1,19 +1,18 @@
+import ErrorComp from "@/_components/Error";
+import JournalCard from "@/_components/JournalCard";
+import Loading from "@/_components/Loading";
+import useFetchJournal from "@/_hooks/_journalHooks/useFetchJournal";
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
 import {
-  View,
+  Image,
+  ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  Image,
-  FlatList,
+  View,
 } from "react-native";
-import { router } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
-import useFetchJournal from "../_hooks/_journalHooks/useFetchJournal";
-import Loading from "../_components/Loading";
-import ErrorComp from "../_components/Error";
-import JournalCard, { JournalValue } from "../_components/JournalCard";
 
 const JournalPage = () => {
   const { journals, isLoading, error, refetch } = useFetchJournal();
@@ -32,8 +31,6 @@ const JournalPage = () => {
       contentContainerStyle={styles.scrollContent}
       showsVerticalScrollIndicator={false}
     >
-      {/* Image dengan fixed height */}
-
       <View style={styles.imageContainer}>
         <Image
           source={{
@@ -87,15 +84,7 @@ const JournalPage = () => {
 
       {/* Journal Content */}
       {journals && journals.length > 0 ? (
-        <FlatList
-          data={journals}
-          renderItem={({ item }: { item: JournalValue }) => (
-            <JournalCard item={item} />
-          )}
-          keyExtractor={(item: JournalValue) => item.id}
-          contentContainerStyle={styles.listContainer}
-          showsVerticalScrollIndicator={false}
-        />
+        journals.map((item, index) => <JournalCard item={item} key={index} />)
       ) : (
         <View style={styles.emptyJournalContainer}>
           <TouchableOpacity
@@ -127,12 +116,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F9FF",
   },
   scrollContent: {
-    // Tambahkan paddingBottom untuk memastikan konten dapat di-scroll penuh
     paddingBottom: 100,
   },
   imageContainer: {
     width: "100%",
-    height: 200, // Tetapkan tinggi fixed
+    height: 200,
   },
   headerImage: {
     width: "100%",
@@ -232,6 +220,7 @@ const styles = StyleSheet.create({
   },
   emptyJournalContent: {
     flexDirection: "row",
+    width: "100%",
     gap: 12,
     alignItems: "center",
   },

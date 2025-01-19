@@ -1,19 +1,18 @@
+import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
   ScrollView,
-  TouchableOpacity,
   StyleSheet,
-  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import {
-  Swipeable,
   GestureHandlerRootView,
+  Swipeable,
 } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
-import MealsCard from "../_components/MealsCard";
-import { meals } from "../../_constant/ListMeals";
+import { meals } from "@/_constant/ListMeals";
+import MealsCard from "@/_components/MealsCard";
 
 const HomePage = () => {
   const [activeSection, setActiveSection] = useState("progress");

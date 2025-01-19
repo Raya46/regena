@@ -1,6 +1,6 @@
+import CustomTabBar from "@/_components/CustomTabBar";
 import { Tabs } from "expo-router";
 import React from "react";
-import CustomTabBar from "../_components/CustomTabBar";
 
 export default function MainLayout() {
   return (

@@ -13,13 +13,6 @@ const OnboardingPage = () => {
       router.push("/login");
     }
   };
-
-  const handlePrev = () => {
-    if (step > 1) {
-      setStep(step - 1);
-    }
-  };
-
   const renderIndicator = (currentStep: number) => {
     return [1, 2, 3].map((dot) => (
       <View

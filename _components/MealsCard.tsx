@@ -10,6 +10,7 @@ const MealsCard = ({ item }: any) => {
         borderRadius: 12,
         backgroundColor: item.bgColor,
         flexDirection: "column",
+        marginBottom: 20,
       }}
     >
       <View

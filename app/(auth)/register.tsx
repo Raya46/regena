@@ -1,3 +1,8 @@
+import SVGTopBar from "@/_components/gradientTopBarSVG";
+import Loading from "@/_components/Loading";
+import { useGoogleAuth } from "@/_hooks/_authHooks/useGoogleAuth";
+import { useRegister } from "@/_hooks/_authHooks/useRegister";
+import { useSave } from "@/_hooks/_authHooks/useSave";
 import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
@@ -11,11 +16,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import SVGTopBar from "../_components/gradientTopBarSVG";
-import { useGoogleAuth } from "../_hooks/_authHooks/useGoogleAuth";
-import { useRegister } from "../_hooks/_authHooks/useRegister";
-import { useSave } from "../_hooks/_authHooks/useSave";
-import Loading from "../_components/Loading";
 
 export default function RegisterScreen() {
   const { saveToLocal } = useSave();

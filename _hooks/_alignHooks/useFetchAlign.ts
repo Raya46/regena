@@ -8,7 +8,7 @@ export default function useFetchAlign() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleAddAlign = useCallback(async () => {
+  const handleFetchAlign = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -27,8 +27,8 @@ export default function useFetchAlign() {
   }, []);
 
   useEffect(() => {
-    handleAddAlign();
-  }, [handleAddAlign]);
+    handleFetchAlign();
+  }, [handleFetchAlign]);
 
-  return { aligns, isLoading, error, refetch: handleAddAlign };
+  return { aligns, isLoading, error, refetch: handleFetchAlign };
 }

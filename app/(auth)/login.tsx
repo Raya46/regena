@@ -8,11 +8,12 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import SVGTopBar from "../_components/gradientTopBarSVG";
-import { useLogin } from "../_hooks/_authHooks/useLogin";
-import { useSave } from "../_hooks/_authHooks/useSave";
-import { useGoogleAuth } from "../_hooks/_authHooks/useGoogleAuth";
-import Loading from "../_components/Loading";
+
+import { useSave } from "@/_hooks/_authHooks/useSave";
+import { useLogin } from "@/_hooks/_authHooks/useLogin";
+import SVGTopBar from "@/_components/gradientTopBarSVG";
+import { useGoogleAuth } from "@/_hooks/_authHooks/useGoogleAuth";
+import Loading from "@/_components/Loading";
 
 export default function LoginScreen() {
   const { saveToLocal } = useSave();
@@ -57,6 +58,7 @@ export default function LoginScreen() {
           </TouchableOpacity>
         )}
         <Text style={styles.orText}>Or</Text>
+        {/* <GoogleButton /> */}
         <TouchableOpacity
           style={styles.googleButton}
           onPress={continueWithGoogle}

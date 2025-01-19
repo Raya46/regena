@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import useFetchAlign from "../_hooks/_alignHooks/useFetchAlign";
-import Loading from "../_components/Loading";
-import ErrorComp from "../_components/Error";
-import AlignCard, { AlignValue } from "../_components/AlignCard";
+import React, { useState } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import AlignCard from "@/_components/AlignCard";
+import ErrorComp from "@/_components/Error";
+import Loading from "@/_components/Loading";
+import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
 
 const AlignPage = () => {
   const { aligns, isLoading, error, refetch } = useFetchAlign();
@@ -36,37 +35,38 @@ const AlignPage = () => {
   }
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.title}>Align your thoughts</Text>
-        <Text style={styles.subtitle}>
-          Transform negative thoughts into positive affirmations
-        </Text>
-      </View>
+    <View style={styles.container}>
+      <ScrollView
+        style={styles.scrollContainer}
+        contentContainerStyle={styles.scrollContentContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.title}>Align your thoughts</Text>
+          <Text style={styles.subtitle}>
+            Transform negative thoughts into positive affirmations
+          </Text>
+        </View>
 
-      {/* Thought Cards */}
-      {aligns ? (
-        <FlatList
-          data={aligns}
-          renderItem={({ item }) => (
+        {/* Thought Cards */}
+        {aligns ? (
+          aligns.map((item, index) => (
             <AlignCard
+              key={item.id}
               item={item}
               iconColor={
                 selectedIcons[`${item.id}_notification`] ? "#FF6347" : "#B0B0B0"
               }
-              toggleIconColor={toggleIconColor(item.id, "notification")}
+              toggleIconColor={() => toggleIconColor(item.id, "notification")}
             />
-          )}
-          keyExtractor={(item: AlignValue) => item.id}
-          contentContainerStyle={styles.listContainer}
-          showsVerticalScrollIndicator={false}
-        />
-      ) : (
-        <View>
-          <Text>no align</Text>
-        </View>
-      )}
+          ))
+        ) : (
+          <View style={styles.noAlignContainer}>
+            <Text>No align available</Text>
+          </View>
+        )}
+      </ScrollView>
 
       {/* Floating Add Button */}
       <TouchableOpacity
@@ -75,7 +75,7 @@ const AlignPage = () => {
       >
         <Ionicons name="add" size={32} color="white" />
       </TouchableOpacity>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -83,8 +83,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F9FF",
+  },
+  scrollContainer: {
     paddingHorizontal: 20,
     paddingTop: 30,
+  },
+  scrollContentContainer: {
+    paddingBottom: 100,
   },
   header: {
     marginBottom: 20,
@@ -99,20 +104,26 @@ const styles = StyleSheet.create({
     color: "#7A7A7A",
     marginTop: 5,
   },
-  listContainer: {
-    paddingBottom: 100,
+  noAlignContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
   },
   addButton: {
     position: "absolute",
-    bottom: 30,
-    right: 0,
+    bottom: 20,
+    right: 20,
     width: 60,
     height: 60,
     backgroundColor: "#00A398",
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "flex-end",
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
 });
 

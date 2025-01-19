@@ -8,10 +8,10 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import MealsCard from "../_components/MealsCard";
+import MealsCard from "@/_components/MealsCard";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
-import { meals } from "../../_constant/ListMeals";
+import { meals } from "@/_constant/ListMeals";
 
 const MealsPage = () => {
   return (
@@ -60,12 +60,9 @@ const MealsPage = () => {
       </View>
 
       {/* Meal List */}
-      <FlatList
-        data={meals}
-        renderItem={({ item }) => <MealsCard item={item} />}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.listContainer}
-      />
+      {meals.map((item, index) => (
+        <MealsCard item={item} key={index} />
+      ))}
     </ScrollView>
   );
 };

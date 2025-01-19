@@ -1,10 +1,9 @@
-import { Text, View } from "react-native";
 import React from "react";
-import useUpdateJournal from "../_hooks/_journalHooks/useUpdateJournal";
-import useAddJournal from "../_hooks/_journalHooks/useAddJournal";
-import useFetchJournal from "../_hooks/_journalHooks/useFetchJournal";
+import useUpdateJournal from "@/_hooks/_journalHooks/useUpdateJournal";
+import useAddJournal from "@/_hooks/_journalHooks/useAddJournal";
+import useFetchJournal from "@/_hooks/_journalHooks/useFetchJournal";
 import { useLocalSearchParams } from "expo-router";
-import JournalForm from "../_components/JournalForm";
+import JournalForm from "@/_components/JournalForm";
 
 const JournalAction = () => {
   const { refetch } = useFetchJournal();

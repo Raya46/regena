@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,14 +8,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { useAuth } from "../_hooks/_authHooks/useAuth";
-import API from "@/_constant/API";
+import { useLogout } from "@/_hooks/_authHooks/useLogout";
+import { useSave } from "@/_hooks/_authHooks/useSave";
 
 const ProfilePage = () => {
-  const { logout } = useAuth();
-  const handleLogout = async () => {
-    await logout(`${API}/logout`, "/login");
-  };
+  const { logout } = useLogout();
+  const { dataLocal } = useSave();
   return (
     <ScrollView style={styles.container}>
       <Text
@@ -41,8 +39,8 @@ const ProfilePage = () => {
             <Text style={styles.editText}>✏️</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.profileName}>Patricia Rodrigues</Text>
-        <Text style={styles.profileEmail}>pcrog@gmail.com</Text>
+        <Text style={styles.profileName}>{dataLocal.username}</Text>
+        <Text style={styles.profileEmail}>{dataLocal.email}</Text>
       </View>
 
       <View style={styles.menuContainer}>
@@ -52,7 +50,7 @@ const ProfilePage = () => {
             <Text style={styles.menuText}>{item.label}</Text>
           </TouchableOpacity>
         ))}
-        <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
+        <TouchableOpacity style={styles.menuItem} onPress={logout}>
           <View style={styles.iconPlaceholder}>
             <Ionicons name="enter-outline" color="#EF4444" size={14} />
           </View>
