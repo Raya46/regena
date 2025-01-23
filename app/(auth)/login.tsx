@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -14,8 +14,11 @@ import { useLogin } from "@/_hooks/_authHooks/useLogin";
 import SVGTopBar from "@/_components/gradientTopBarSVG";
 import { useGoogleAuth } from "@/_hooks/_authHooks/useGoogleAuth";
 import Loading from "@/_components/Loading";
+import Checkbox from "expo-checkbox";
 
 export default function LoginScreen() {
+  const [rememberMe, setRememberMe] = useState(false);
+
   const { saveToLocal } = useSave();
   const { login, fieldsLogin, setFieldsLogin, isSubmiting } =
     useLogin(saveToLocal);
@@ -25,6 +28,9 @@ export default function LoginScreen() {
       <SVGTopBar />
       <View style={{ flex: 5, justifyContent: "center" }}>
         <Text style={styles.title}>Sign in to your Account</Text>
+        <Text style={styles.subtitle}>
+          Enter your email and password to log in
+        </Text>
         <TextInput
           style={styles.input}
           placeholder="Enter your email"
@@ -43,9 +49,15 @@ export default function LoginScreen() {
           }
         />
         <View style={styles.row}>
-          <TouchableOpacity>
+          <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+            <Checkbox
+              value={rememberMe}
+              onValueChange={setRememberMe}
+              color={rememberMe ? "#00D1FF" : undefined}
+              style={{ height: 15, width: 15 }}
+            />
             <Text>Remember Me</Text>
-          </TouchableOpacity>
+          </View>
           <TouchableOpacity>
             <Text style={styles.linkText}>Forgot Password?</Text>
           </TouchableOpacity>
@@ -72,9 +84,7 @@ export default function LoginScreen() {
         style={{
           flexDirection: "row",
           justifyContent: "center",
-          alignItems: "flex-end",
           flex: 1,
-          marginBottom: 20,
         }}
       >
         <Text>Don't have an account?</Text>
@@ -95,6 +105,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "#6B7280",
+    marginLeft: 5,
     marginBottom: 20,
   },
   input: {

@@ -5,9 +5,8 @@ import { StatusBar } from "react-native";
 export default function OnboardingLayout() {
   return (
     <Stack>
-      <StatusBar hidden={true} />
-      <Stack.Screen name="Login" options={{ headerShown: false }} />
-      <Stack.Screen name="Register" options={{ headerShown: false }} />
+      <Stack.Screen name="login" options={{ headerShown: false }} />
+      <Stack.Screen name="register" options={{ headerShown: false }} />
     </Stack>
   );
 }

@@ -45,7 +45,7 @@ export default function RegisterScreen() {
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <SVGTopBar />
 
-      <View style={{ paddingVertical: 20, paddingHorizontal: 20 }}>
+      <View style={{ paddingVertical: 40, paddingHorizontal: 20 }}>
         <Ionicons
           name="arrow-back"
           size={20}
@@ -128,7 +128,11 @@ export default function RegisterScreen() {
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
         )}
-        <Text style={styles.orText}>Or</Text>
+        <View style={styles.dividerContainer}>
+          <View style={styles.divider} />
+          <Text style={styles.dividerText}>Or</Text>
+          <View style={styles.divider} />
+        </View>
         <TouchableOpacity
           style={styles.googleButton}
           onPress={continueWithGoogle}
@@ -156,6 +160,20 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
+  dividerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  divider: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#D9DDDF",
+  },
+  dividerText: {
+    color: "#ccc",
+    marginHorizontal: 10,
+  },
   input: {
     height: 42,
     backgroundColor: "#FFFFFF",
@@ -171,7 +189,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
-    marginVertical: 10,
+    marginTop: 10,
   },
   buttonText: {
     color: "#FFFFFF",
@@ -181,7 +199,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "center",
-    marginVertical: 10,
+    marginVertical: 40,
   },
   linkText: {
     color: "#00A86B",
