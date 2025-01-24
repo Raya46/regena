@@ -16,7 +16,7 @@ export default function useFetchAlign() {
       const response = await axios.get(`${API}/aligns`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = response.data.aligns;
+      const data = response.data;
       setAligns(data);
     } catch (error) {
       setError("someting went wrong");

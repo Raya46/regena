@@ -13,7 +13,7 @@ export const useRegister = (
     lastName: "",
     username: "",
     email: "",
-    dateOfBirth: null,
+    dateOfBirth: "",
     phoneNumber: "",
     password: "",
   });
@@ -29,6 +29,7 @@ export const useRegister = (
         phone_number: fieldsRegister.phoneNumber,
         password: fieldsRegister.password,
       };
+      console.log(registrationData);
       const response = await axios.post(`${API}/register`, registrationData);
       const token = response.data.token;
       const username = response.data.user.username;
@@ -39,13 +40,13 @@ export const useRegister = (
         lastName: "",
         username: "",
         email: "",
-        dateOfBirth: null,
+        dateOfBirth: "",
         phoneNumber: "",
         password: "",
       });
       router.replace({ pathname: "/Home" });
     } catch (error: any) {
-      console.log(error);
+      console.log(error, fieldsRegister);
       setError(error);
     } finally {
       setIsSubmiting(false);

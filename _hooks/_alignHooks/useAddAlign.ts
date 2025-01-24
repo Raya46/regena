@@ -9,6 +9,7 @@ export default function useAddAlign(onSuccess: () => void) {
     content: "",
   });
 
+  const [showContent, setShowContent] = useState(false);
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,10 +18,13 @@ export default function useAddAlign(onSuccess: () => void) {
     setError(null);
     try {
       const token = await AsyncStorage.getItem("token");
-      await axios.post(`${API}/aligns`, fields, {
+      const response = await axios.post(`${API}/aligns`, fields, {
         headers: { Authorization: `Bearer ${token}` },
       });
       onSuccess();
+      setFields({ ...fields, content: response.data.content });
+      console.log(response.data);
+      setShowContent(true);
     } catch (error) {
       setError("something went wrong");
     } finally {
@@ -34,5 +38,6 @@ export default function useAddAlign(onSuccess: () => void) {
     isSubmiting,
     error,
     handleAddAlign,
+    showContent,
   };
 }

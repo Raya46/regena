@@ -2,7 +2,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-const SVGTopBar = () => (
+const GradientTopBar = () => (
   <View style={styles.container}>
     <LinearGradient
       colors={["#2DD4BF", "#F5F5F5"]}
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SVGTopBar;
+export default GradientTopBar;

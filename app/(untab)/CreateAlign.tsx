@@ -1,27 +1,21 @@
+import Loading from "@/_components/Loading";
+import useAddAlign from "@/_hooks/_alignHooks/useAddAlign";
+import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React, { useState } from "react";
 import {
-  View,
-  Text,
+  Image,
   StyleSheet,
+  Text,
   TextInput,
   TouchableOpacity,
-  Image,
+  View,
 } from "react-native";
 
 const CreateAlign = () => {
-  const [feeling, setFeeling] = useState("");
-  const [change, setChange] = useState(false);
-
-  const handleFeelingChange = (text: string) => {
-    setFeeling(text);
-  };
-
-  const handleMakeItPositive = () => {
-    console.log("Make it positive button pressed!");
-    setChange(!change);
-  };
+  const { refetch, aligns } = useFetchAlign();
+  const { fields, setFields, error, isSubmiting, handleAddAlign, showContent } =
+    useAddAlign(refetch);
 
   return (
     <View style={styles.container}>
@@ -41,19 +35,25 @@ const CreateAlign = () => {
         />
       </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Write what you're feeling or thinking right now..."
-        onChangeText={handleFeelingChange}
-        value={feeling}
-      />
+      {showContent ? (
+        <View>
+          <Text style={{ color: "black" }}>{fields.content}</Text>
+        </View>
+      ) : (
+        <TextInput
+          style={styles.input}
+          placeholder="Write what you're feeling or thinking right now..."
+          onChangeText={(text) => setFields({ ...fields, title: text })}
+        />
+      )}
+
       <View style={{ flex: 3 }}></View>
 
-      {change ? (
+      {showContent ? (
         <View style={{ flexDirection: "column", gap: 16 }}>
           <TouchableOpacity
             style={styles.button}
-            onPress={handleMakeItPositive}
+            onPress={() => console.log("handle update align")}
           >
             <Text style={styles.buttonText}>Set as Notification</Text>
           </TouchableOpacity>
@@ -65,9 +65,15 @@ const CreateAlign = () => {
           </TouchableOpacity>
         </View>
       ) : (
-        <TouchableOpacity style={styles.button} onPress={handleMakeItPositive}>
-          <Text style={styles.buttonText}>Make It Positive</Text>
-        </TouchableOpacity>
+        <>
+          {isSubmiting ? (
+            <Loading />
+          ) : (
+            <TouchableOpacity style={styles.button} onPress={handleAddAlign}>
+              <Text style={styles.buttonText}>Make It Positive</Text>
+            </TouchableOpacity>
+          )}
+        </>
       )}
     </View>
   );
@@ -103,7 +109,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 24,
     backgroundColor: "#fff",
-    color: "#D1D5DB",
+    color: "black",
     flex: 2,
   },
   button: {

@@ -83,7 +83,7 @@ const JournalPage = () => {
       </ScrollView>
 
       {/* Journal Content */}
-      {journals && journals.length > 0 ? (
+      {journals ? (
         journals.map((item, index) => <JournalCard item={item} key={index} />)
       ) : (
         <View style={styles.emptyJournalContainer}>

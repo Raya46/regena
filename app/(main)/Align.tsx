@@ -1,18 +1,17 @@
+import AlignCard from "@/_components/AlignCard";
+import ErrorComp from "@/_components/Error";
+import Loading from "@/_components/Loading";
+import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import AlignCard from "@/_components/AlignCard";
-import ErrorComp from "@/_components/Error";
-import Loading from "@/_components/Loading";
-import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
 
 const AlignPage = () => {
   const { aligns, isLoading, error, refetch } = useFetchAlign();

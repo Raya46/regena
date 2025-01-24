@@ -1,12 +1,13 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import { format } from "date-fns";
 import { router } from "expo-router";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export interface JournalValue {
   id: string;
   title: string;
   content: string;
-  date: string;
+  created_at: string;
 }
 
 const JournalCard = ({ item }: { item: JournalValue }) => {
@@ -26,8 +27,12 @@ const JournalCard = ({ item }: { item: JournalValue }) => {
       }
     >
       <View style={styles.journalHeader}>
-        <Text style={styles.dateText2}>{item.date}</Text>
-        <Text style={styles.dateText2}>{item.date}</Text>
+        <Text style={styles.dateText2}>
+          {format(item.created_at, "dd EEE yyyy")}
+        </Text>
+        <Text style={styles.dateText2}>
+          {format(new Date(item.created_at), "HH:mm")}
+        </Text>
       </View>
       <Text style={styles.titleText}>{item.title}</Text>
       <Text style={styles.contentText}>{item.content}</Text>

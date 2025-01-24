@@ -16,7 +16,7 @@ export default function useFetchJournal() {
       const response = await axios.get(`${API}/journals`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = response.data.journals;
+      const data = response.data;
       setJournals(data);
     } catch (error) {
       setError("someting went wrong");

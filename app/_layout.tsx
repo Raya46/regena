@@ -24,7 +24,7 @@ export default function RootLayout() {
         <Stack.Screen name="(main)" options={{ headerShown: false }} />
         <Stack.Screen name="(untab)" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar hidden={true} />
+      <StatusBar style="auto" />
     </>
   );
 }

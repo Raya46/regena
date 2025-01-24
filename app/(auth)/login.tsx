@@ -11,7 +11,7 @@ import {
 
 import { useSave } from "@/_hooks/_authHooks/useSave";
 import { useLogin } from "@/_hooks/_authHooks/useLogin";
-import SVGTopBar from "@/_components/gradientTopBarSVG";
+import SVGTopBar from "@/_components/GradientTopBar";
 import { useGoogleAuth } from "@/_hooks/_authHooks/useGoogleAuth";
 import Loading from "@/_components/Loading";
 import Checkbox from "expo-checkbox";

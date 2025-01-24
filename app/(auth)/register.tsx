@@ -1,4 +1,4 @@
-import SVGTopBar from "@/_components/gradientTopBarSVG";
+import SVGTopBar from "@/_components/GradientTopBar";
 import Loading from "@/_components/Loading";
 import { useGoogleAuth } from "@/_hooks/_authHooks/useGoogleAuth";
 import { useRegister } from "@/_hooks/_authHooks/useRegister";
@@ -29,7 +29,7 @@ export default function RegisterScreen() {
       const currentDate = selectedDate;
       setDate(currentDate);
 
-      const formattedDate = format(currentDate, "dd/MM/yyyy");
+      const formattedDate = format(currentDate, "yyyy-MM-dd");
 
       setFieldsRegister({
         ...fieldsRegister,
@@ -94,7 +94,7 @@ export default function RegisterScreen() {
           placeholder="DD/MM/YYYY"
           placeholderTextColor="#9CA3AF"
           onFocus={() => setPicker(true)}
-          value={date ? format(date, "dd/MM/yyyy") : ""}
+          value={format(date, "yyyy-MM-dd")}
           editable={!picker}
         />
         {picker && (
@@ -175,10 +175,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   input: {
-    height: 42,
     backgroundColor: "#FFFFFF",
     borderRadius: 10,
-    paddingHorizontal: 15,
+    padding: 15,
     marginBottom: 15,
     fontSize: 14,
     borderWidth: 1,
