@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import Loading from "./Loading";
 
 export interface AlignValue {
   id: string;
@@ -11,33 +12,39 @@ export interface AlignValue {
 
 const AlignCard = ({
   item,
-  toggleIconColor,
+  updateAlign,
   iconColor,
+  isSubmiting,
 }: {
   item: AlignValue;
-  toggleIconColor: void;
+  updateAlign: void;
   iconColor: string;
+  isSubmiting: boolean;
 }) => {
   return (
     <View style={styles.card}>
       <Text style={styles.negativeText}>{item.title}</Text>
-      <View style={styles.positiveContainer}>
-        <Ionicons
-          name="happy-outline"
-          size={24}
-          color="#FFD700"
-          style={styles.icon}
-        />
-        <Text style={styles.positiveText}>{item.content}</Text>
-        <TouchableOpacity onPress={() => toggleIconColor}>
+      {isSubmiting ? (
+        <Loading />
+      ) : (
+        <View style={styles.positiveContainer}>
           <Ionicons
-            name="notifications-outline"
-            size={20}
-            color={iconColor}
-            style={styles.notificationIcon}
+            name="happy-outline"
+            size={24}
+            color="#FFD700"
+            style={styles.icon}
           />
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.positiveText}>{item.content}</Text>
+          <TouchableOpacity onPress={() => updateAlign}>
+            <Ionicons
+              name="notifications-outline"
+              size={20}
+              color={iconColor}
+              style={styles.notificationIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };

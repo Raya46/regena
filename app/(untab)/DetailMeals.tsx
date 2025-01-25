@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#000",
+    fontFamily: "Lato",
   },
   imageContainer: {
     alignItems: "center",
@@ -161,10 +162,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FFF",
     marginBottom: 5,
+    fontFamily: "Lato",
   },
   description: {
     fontSize: 14,
     color: "#FFF",
+    fontFamily: "Lato",
   },
   section: {
     marginHorizontal: 20,
@@ -183,6 +186,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#000",
     marginLeft: 10,
+    fontFamily: "Lato",
   },
   sectionContent: {
     marginLeft: 10,

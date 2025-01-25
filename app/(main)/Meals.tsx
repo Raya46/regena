@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#fff",
+    fontFamily: "Lato",
   },
   header: {
     marginBottom: 20,
@@ -95,11 +96,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#000",
+    fontFamily: "Lato",
   },
   subtitle: {
     fontSize: 12,
     color: "#7A7A7A",
     marginTop: 5,
+    fontFamily: "Lato",
   },
   categoryContainer: {
     flexDirection: "row",
@@ -124,6 +127,7 @@ const styles = StyleSheet.create({
   generateText: {
     color: "#fff",
     textAlign: "center",
+    fontFamily: "Lato",
   },
   featuredCard: {
     marginBottom: 20,
@@ -147,16 +151,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FFF",
     marginBottom: 5,
+    fontFamily: "Lato",
   },
   featuredDescription: {
     fontSize: 14,
     color: "#E7E7E7",
     marginBottom: 10,
+    fontFamily: "Lato",
   },
   readMore: {
     fontSize: 14,
     color: "#FFD700",
     fontWeight: "bold",
+    fontFamily: "Lato",
   },
   listContainer: {
     gap: 12,

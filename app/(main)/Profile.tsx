@@ -23,6 +23,7 @@ const ProfilePage = () => {
           color: "#111827",
           alignSelf: "center",
           marginTop: 20,
+          fontFamily: "Lato",
         }}
       >
         Profile
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
   profileHeader: {
     alignItems: "center",
     paddingVertical: 5,
+    fontFamily: "Lato",
   },
   avatarContainer: {
     position: "relative",
@@ -116,16 +118,19 @@ const styles = StyleSheet.create({
   editText: {
     fontSize: 12,
     color: "#00796b",
+    fontFamily: "Lato",
   },
   profileName: {
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 10,
     color: "#333",
+    fontFamily: "Lato",
   },
   profileEmail: {
     fontSize: 16,
     color: "#777",
+    fontFamily: "Lato",
   },
   menuContainer: {
     marginTop: 10,
@@ -151,6 +156,7 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 12,
     color: "#333",
+    fontFamily: "Lato",
   },
 });
 

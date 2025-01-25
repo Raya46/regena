@@ -212,11 +212,13 @@ const styles = StyleSheet.create({
   normalText: {
     fontSize: 32,
     fontWeight: "600",
+    fontFamily: "Lato",
   },
   highlightText: {
     color: "#14B8A6",
     fontSize: 32,
     fontWeight: "600",
+    fontFamily: "Lato",
   },
   navigationContainer: {
     flexDirection: "row",
@@ -229,6 +231,7 @@ const styles = StyleSheet.create({
   skipText: {
     fontSize: 16,
     fontWeight: "500",
+    fontFamily: "Lato",
   },
   nextButton: {
     padding: 17,

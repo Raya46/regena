@@ -1,6 +1,7 @@
 import Loading from "@/_components/Loading";
 import useAddAlign from "@/_hooks/_alignHooks/useAddAlign";
 import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
+import useUpdateAlign from "@/_hooks/_alignHooks/useUpdateAlign";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import {
@@ -13,9 +14,10 @@ import {
 } from "react-native";
 
 const CreateAlign = () => {
-  const { refetch, aligns } = useFetchAlign();
+  const { refetch } = useFetchAlign();
   const { fields, setFields, error, isSubmiting, handleAddAlign, showContent } =
     useAddAlign(refetch);
+  const { handleUpdateAlign } = useUpdateAlign(refetch);
 
   return (
     <View style={styles.container}>
@@ -59,7 +61,10 @@ const CreateAlign = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonOutline}
-            onPress={() => router.back()}
+            onPress={() => {
+              handleUpdateAlign(fields.id, true);
+              router.back();
+            }}
           >
             <Text style={{ color: "#14B8A6" }}>Save for Later</Text>
           </TouchableOpacity>
@@ -90,11 +95,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     textAlign: "center",
+    fontFamily: "Lato",
   },
   subtitle: {
     fontSize: 16,
     marginBottom: 20,
     textAlign: "center",
+    fontFamily: "Lato",
   },
   imageContainer: {
     alignItems: "center",
@@ -129,6 +136,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#ffffff",
     fontWeight: "bold",
+    fontFamily: "Lato",
   },
 });
 

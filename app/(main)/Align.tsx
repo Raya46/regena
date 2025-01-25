@@ -2,9 +2,10 @@ import AlignCard from "@/_components/AlignCard";
 import ErrorComp from "@/_components/Error";
 import Loading from "@/_components/Loading";
 import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
+import useUpdateAlign from "@/_hooks/_alignHooks/useUpdateAlign";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -15,16 +16,8 @@ import {
 
 const AlignPage = () => {
   const { aligns, isLoading, error, refetch } = useFetchAlign();
-  const [selectedIcons, setSelectedIcons] = useState<{
-    [key: string]: boolean;
-  }>({});
 
-  const toggleIconColor = (id: string, iconType: "notification") => {
-    setSelectedIcons((prev) => ({
-      ...prev,
-      [`${id}_${iconType}`]: !prev[`${id}_${iconType}`],
-    }));
-  };
+  const { isSubmiting, handleUpdateAlign } = useUpdateAlign(refetch);
 
   if (isLoading) {
     return <Loading />;
@@ -55,10 +48,9 @@ const AlignPage = () => {
             <AlignCard
               key={item.id}
               item={item}
-              iconColor={
-                selectedIcons[`${item.id}_notification`] ? "#FF6347" : "#B0B0B0"
-              }
-              toggleIconColor={() => toggleIconColor(item.id, "notification")}
+              iconColor={item.notification ? "#FF6347" : "#B0B0B0"}
+              updateAlign={handleUpdateAlign(item.id, !item.notification)}
+              isSubmiting={isSubmiting}
             />
           ))
         ) : (
@@ -98,11 +90,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#000",
+    fontFamily: "Lato",
   },
   subtitle: {
     fontSize: 14,
     color: "#7A7A7A",
     marginTop: 5,
+    fontFamily: "Lato",
   },
   noAlignContainer: {
     alignItems: "center",

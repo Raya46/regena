@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     color: "#14B8A6",
+    fontFamily: "Lato",
   },
   indicatorContainer: {
     flexDirection: "row",
@@ -215,6 +216,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#4A5568",
     marginBottom: 15,
+    fontFamily: "Lato",
   },
   progressBar: {
     padding: 25,
@@ -230,6 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     position: "absolute",
     left: 10,
+    fontFamily: "Lato",
   },
   resetContainer: {
     backgroundColor: "#F0FFF4",
@@ -245,6 +248,7 @@ const styles = StyleSheet.create({
     color: "#2F855A",
     textAlign: "center",
     marginBottom: 16,
+    fontFamily: "Lato",
   },
   resetButton: {
     backgroundColor: "#38B2AC",
@@ -257,6 +261,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 16,
     fontWeight: "bold",
+    fontFamily: "Lato",
   },
   mealItem: {
     marginBottom: 16,

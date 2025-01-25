@@ -164,14 +164,17 @@ const styles = StyleSheet.create({
   dateText: {
     color: "#555",
     textAlign: "center",
+    fontFamily: "Lato",
   },
   selectedDateText: {
     color: "#FFF",
     textAlign: "center",
+    fontFamily: "Lato",
   },
   tanggalBold: {
     fontWeight: "bold",
     fontSize: 20,
+    fontFamily: "Lato",
   },
   journalInput: {
     backgroundColor: "#FFF",
@@ -186,6 +189,7 @@ const styles = StyleSheet.create({
   journalText: {
     color: "#888",
     fontSize: 14,
+    fontFamily: "Lato",
   },
   emptyJournalContainer: {
     flex: 3,
@@ -213,10 +217,12 @@ const styles = StyleSheet.create({
     color: "#111827",
     fontSize: 16,
     fontWeight: "700",
+    fontFamily: "Lato",
   },
   contentText: {
     fontSize: 14,
     color: "#6B7280",
+    fontFamily: "Lato",
   },
   emptyJournalContent: {
     flexDirection: "row",
