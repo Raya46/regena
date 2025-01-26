@@ -13,7 +13,7 @@ export default function useUpdateAlign(onSuccess: () => void) {
     try {
       const token = await AsyncStorage.getItem("token");
       await axios.put(
-        `${API}/${id}`,
+        `${API}/aligns/${id}`,
         { notification: valueNotification },
         {
           headers: { Authorization: `Bearer ${token}` },

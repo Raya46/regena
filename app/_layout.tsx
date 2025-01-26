@@ -16,7 +16,6 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
       const getToken = async () => {
         const token = await AsyncStorage.getItem("token");
-        console.log("root layout", token);
         if (token) {
           router.replace("/Home");
         } else {

@@ -71,10 +71,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#000",
+    fontFamily: "Lato",
   },
   cardDescription: {
     fontSize: 12,
     color: "#7A7A7A",
+    fontFamily: "Lato",
   },
   iconContainer: {
     flexDirection: "column",

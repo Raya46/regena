@@ -5,6 +5,7 @@ import { useState } from "react";
 
 export default function useAddAlign(onSuccess: () => void) {
   const [fields, setFields] = useState({
+    id: "",
     title: "",
     content: "",
   });
@@ -22,8 +23,11 @@ export default function useAddAlign(onSuccess: () => void) {
         headers: { Authorization: `Bearer ${token}` },
       });
       onSuccess();
-      setFields({ ...fields, content: response.data.content });
-      console.log(response.data);
+      setFields({
+        ...fields,
+        content: response.data.content,
+        id: response.data.id,
+      });
       setShowContent(true);
     } catch (error) {
       setError("something went wrong");

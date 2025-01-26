@@ -29,7 +29,6 @@ export const useLogin = (
       });
       router.replace({ pathname: "/Home" });
     } catch (error: any) {
-      console.log(error);
       setError(error);
     } finally {
       setIsSubmiting(false);

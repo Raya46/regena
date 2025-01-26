@@ -15,13 +15,13 @@ import {
 
 const CreateAlign = () => {
   const { refetch } = useFetchAlign();
-  const { fields, setFields, error, isSubmiting, handleAddAlign, showContent } =
+  const { fields, setFields, isSubmiting, handleAddAlign, showContent } =
     useAddAlign(refetch);
   const { handleUpdateAlign } = useUpdateAlign(refetch);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => router.back()}>
+      <TouchableOpacity onPress={() => router.replace("/Align")}>
         <Ionicons name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
       <Text style={styles.title}>It's okay to express your feelings here.</Text>
@@ -55,16 +55,13 @@ const CreateAlign = () => {
         <View style={{ flexDirection: "column", gap: 16 }}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => console.log("handle update align")}
+            onPress={() => handleUpdateAlign(fields.id, true)}
           >
             <Text style={styles.buttonText}>Set as Notification</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonOutline}
-            onPress={() => {
-              handleUpdateAlign(fields.id, true);
-              router.back();
-            }}
+            onPress={() => router.replace("/Align")}
           >
             <Text style={{ color: "#14B8A6" }}>Save for Later</Text>
           </TouchableOpacity>

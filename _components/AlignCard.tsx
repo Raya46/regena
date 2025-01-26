@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useCallback } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import Loading from "./Loading";
 
@@ -17,10 +17,13 @@ const AlignCard = ({
   isSubmiting,
 }: {
   item: AlignValue;
-  updateAlign: void;
+  updateAlign: () => void;
   iconColor: string;
   isSubmiting: boolean;
 }) => {
+  const handleUpdateAlign = useCallback(() => {
+    updateAlign();
+  }, [updateAlign]);
   return (
     <View style={styles.card}>
       <Text style={styles.negativeText}>{item.title}</Text>
@@ -35,7 +38,7 @@ const AlignCard = ({
             style={styles.icon}
           />
           <Text style={styles.positiveText}>{item.content}</Text>
-          <TouchableOpacity onPress={() => updateAlign}>
+          <TouchableOpacity onPress={handleUpdateAlign}>
             <Ionicons
               name="notifications-outline"
               size={20}

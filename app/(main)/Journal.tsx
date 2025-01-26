@@ -4,7 +4,7 @@ import Loading from "@/_components/Loading";
 import useFetchJournal from "@/_hooks/_journalHooks/useFetchJournal";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Image,
   ScrollView,
@@ -16,6 +16,10 @@ import {
 
 const JournalPage = () => {
   const { journals, isLoading, error, refetch } = useFetchJournal();
+
+  const journalCards = useMemo(() => {
+    return journals?.map((item) => <JournalCard item={item} key={item.id} />);
+  }, [journals]);
 
   if (isLoading) {
     return <Loading />;
@@ -83,9 +87,7 @@ const JournalPage = () => {
       </ScrollView>
 
       {/* Journal Content */}
-      {journals ? (
-        journals.map((item, index) => <JournalCard item={item} key={index} />)
-      ) : (
+      {journals.length == 0 ? (
         <View style={styles.emptyJournalContainer}>
           <TouchableOpacity
             style={styles.journalInput}
@@ -104,6 +106,33 @@ const JournalPage = () => {
               </Text>
             </View>
           </TouchableOpacity>
+        </View>
+      ) : (
+        <View>
+          <View style={styles.emptyJournalContainer}>
+            <TouchableOpacity
+              style={styles.journalInput}
+              onPress={() =>
+                router.push({
+                  pathname: "/JournalAction",
+                  params: { mode: "create" },
+                })
+              }
+            >
+              <View style={styles.emptyJournalContent}>
+                <Ionicons
+                  name="paper-plane-outline"
+                  size={24}
+                  color="#6B7280"
+                />
+                <Text style={styles.journalText}>
+                  Tell us what's on your mind today. Writing it down helps guide
+                  you toward healing.
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          {journalCards}
         </View>
       )}
     </ScrollView>
@@ -135,11 +164,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#333",
+    fontFamily: "Lato",
   },
   subHeaderText: {
     fontSize: 16,
     color: "#555",
     marginTop: 5,
+    fontFamily: "Lato",
   },
   dateSelector: {
     flexDirection: "row",
@@ -190,11 +221,12 @@ const styles = StyleSheet.create({
     color: "#888",
     fontSize: 14,
     fontFamily: "Lato",
+    width: 300,
   },
   emptyJournalContainer: {
     flex: 3,
     paddingHorizontal: 20,
-    marginTop: 12,
+    marginVertical: 12,
   },
   journalContainer: {
     backgroundColor: "#fff",
@@ -226,7 +258,6 @@ const styles = StyleSheet.create({
   },
   emptyJournalContent: {
     flexDirection: "row",
-    width: "100%",
     gap: 12,
     alignItems: "center",
   },

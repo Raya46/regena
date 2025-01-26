@@ -55,7 +55,7 @@ const JournalForm: React.FC<JournalFormProps> = ({
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => router.replace("/Journal")}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
         <TouchableOpacity onPress={onSubmit} disabled={isSubmiting}>

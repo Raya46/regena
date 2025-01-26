@@ -5,8 +5,9 @@ import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
 import useUpdateAlign from "@/_hooks/_alignHooks/useUpdateAlign";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import {
+  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
@@ -19,6 +20,25 @@ const AlignPage = () => {
 
   const { isSubmiting, handleUpdateAlign } = useUpdateAlign(refetch);
 
+  const handleUpdateCallback = useCallback(
+    (id: string, currentNotification: boolean) => {
+      handleUpdateAlign(id, !currentNotification);
+    },
+    [handleUpdateAlign]
+  );
+
+  const alignCards = useMemo(() => {
+    return aligns?.map((item) => (
+      <AlignCard
+        key={item.id}
+        item={item}
+        iconColor={item.notification ? "#FF6347" : "#B0B0B0"}
+        updateAlign={() => handleUpdateCallback(item.id, item.notification)}
+        isSubmiting={isSubmiting}
+      />
+    ));
+  }, [aligns, isSubmiting, handleUpdateCallback]);
+
   if (isLoading) {
     return <Loading />;
   }
@@ -30,6 +50,7 @@ const AlignPage = () => {
   return (
     <View style={styles.container}>
       <ScrollView
+        // refreshControl={<RefreshControl refreshing />}
         style={styles.scrollContainer}
         contentContainerStyle={styles.scrollContentContainer}
         showsVerticalScrollIndicator={false}
@@ -43,16 +64,8 @@ const AlignPage = () => {
         </View>
 
         {/* Thought Cards */}
-        {aligns ? (
-          aligns.map((item, index) => (
-            <AlignCard
-              key={item.id}
-              item={item}
-              iconColor={item.notification ? "#FF6347" : "#B0B0B0"}
-              updateAlign={handleUpdateAlign(item.id, !item.notification)}
-              isSubmiting={isSubmiting}
-            />
-          ))
+        {aligns.length > 0 ? (
+          alignCards
         ) : (
           <View style={styles.noAlignContainer}>
             <Text>No align available</Text>

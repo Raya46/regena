@@ -20,7 +20,6 @@ export default function useFetchAlign() {
       setAligns(data);
     } catch (error) {
       setError("someting went wrong");
-      console.log(error);
     } finally {
       setIsLoading(false);
     }
