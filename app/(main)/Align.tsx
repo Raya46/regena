@@ -4,10 +4,11 @@ import Loading from "@/_components/Loading";
 import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
 import useUpdateAlign from "@/_hooks/_alignHooks/useUpdateAlign";
 import { Ionicons } from "@expo/vector-icons";
+import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
-import React, { useCallback, useMemo } from "react";
+
+import React, { useMemo } from "react";
 import {
-  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
@@ -16,41 +17,44 @@ import {
 } from "react-native";
 
 const AlignPage = () => {
-  const { aligns, isLoading, error, refetch } = useFetchAlign();
+  const { refetch } = useFetchAlign();
 
-  const { isSubmiting, handleUpdateAlign } = useUpdateAlign(refetch);
+  const {
+    data,
+    isLoading,
+    error,
+    refetch: queryRefetch,
+  } = useQuery({
+    queryKey: ["aligns"],
+    queryFn: refetch,
+    initialData: [],
+  });
 
-  const handleUpdateCallback = useCallback(
-    (id: string, currentNotification: boolean) => {
-      handleUpdateAlign(id, !currentNotification);
-    },
-    [handleUpdateAlign]
-  );
+  const { handleUpdateAlign, isSubmiting } = useUpdateAlign();
 
   const alignCards = useMemo(() => {
-    return aligns?.map((item) => (
+    return data?.map((item) => (
       <AlignCard
         key={item.id}
         item={item}
         iconColor={item.notification ? "#FF6347" : "#B0B0B0"}
-        updateAlign={() => handleUpdateCallback(item.id, item.notification)}
+        updateAlign={() => handleUpdateAlign(item.id, !item.notification)}
         isSubmiting={isSubmiting}
       />
     ));
-  }, [aligns, isSubmiting, handleUpdateCallback]);
+  }, [data, isSubmiting, handleUpdateAlign]);
 
   if (isLoading) {
     return <Loading />;
   }
 
   if (error) {
-    return <ErrorComp error={error} reload={refetch} />;
+    return <ErrorComp error={error} reload={queryRefetch} />;
   }
 
   return (
     <View style={styles.container}>
       <ScrollView
-        // refreshControl={<RefreshControl refreshing />}
         style={styles.scrollContainer}
         contentContainerStyle={styles.scrollContentContainer}
         showsVerticalScrollIndicator={false}
@@ -64,7 +68,7 @@ const AlignPage = () => {
         </View>
 
         {/* Thought Cards */}
-        {aligns.length > 0 ? (
+        {data?.length > 0 ? (
           alignCards
         ) : (
           <View style={styles.noAlignContainer}>

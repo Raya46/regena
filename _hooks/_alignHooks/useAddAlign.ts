@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useState } from "react";
 
-export default function useAddAlign(onSuccess: () => void) {
+export default function useAddAlign() {
   const [fields, setFields] = useState({
     id: "",
     title: "",
@@ -22,7 +22,6 @@ export default function useAddAlign(onSuccess: () => void) {
       const response = await axios.post(`${API}/aligns`, fields, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      onSuccess();
       setFields({
         ...fields,
         content: response.data.content,

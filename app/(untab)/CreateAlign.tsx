@@ -1,8 +1,8 @@
 import Loading from "@/_components/Loading";
 import useAddAlign from "@/_hooks/_alignHooks/useAddAlign";
-import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
 import useUpdateAlign from "@/_hooks/_alignHooks/useUpdateAlign";
 import { Ionicons } from "@expo/vector-icons";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import {
   Image,
@@ -14,10 +14,18 @@ import {
 } from "react-native";
 
 const CreateAlign = () => {
-  const { refetch } = useFetchAlign();
+  const client = useQueryClient();
+
   const { fields, setFields, isSubmiting, handleAddAlign, showContent } =
-    useAddAlign(refetch);
-  const { handleUpdateAlign } = useUpdateAlign(refetch);
+    useAddAlign();
+  const { handleUpdateAlign } = useUpdateAlign();
+
+  const { mutate } = useMutation({
+    mutationFn: handleAddAlign,
+    onSuccess: () => {
+      client.invalidateQueries(["aligns"]);
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -61,7 +69,7 @@ const CreateAlign = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonOutline}
-            onPress={() => router.replace("/Align")}
+            onPress={() => router.back()}
           >
             <Text style={{ color: "#14B8A6" }}>Save for Later</Text>
           </TouchableOpacity>
@@ -71,7 +79,7 @@ const CreateAlign = () => {
           {isSubmiting ? (
             <Loading />
           ) : (
-            <TouchableOpacity style={styles.button} onPress={handleAddAlign}>
+            <TouchableOpacity style={styles.button} onPress={() => mutate()}>
               <Text style={styles.buttonText}>Make It Positive</Text>
             </TouchableOpacity>
           )}

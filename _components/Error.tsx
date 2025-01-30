@@ -3,7 +3,7 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 interface ErrorCompProps {
-  error: string | null;
+  error: string | null | Error;
   reload: () => void;
 }
 

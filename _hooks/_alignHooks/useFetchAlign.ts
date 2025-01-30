@@ -17,7 +17,7 @@ export default function useFetchAlign() {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = response.data;
-      setAligns(data);
+      return data;
     } catch (error) {
       setError("someting went wrong");
     } finally {
