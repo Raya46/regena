@@ -1,12 +1,10 @@
-import React from "react";
-import useUpdateJournal from "@/_hooks/_journalHooks/useUpdateJournal";
-import useAddJournal from "@/_hooks/_journalHooks/useAddJournal";
-import useFetchJournal from "@/_hooks/_journalHooks/useFetchJournal";
-import { useLocalSearchParams } from "expo-router";
 import JournalForm from "@/_components/JournalForm";
+import useAddJournal from "@/_hooks/_journalHooks/useAddJournal";
+import useUpdateJournal from "@/_hooks/_journalHooks/useUpdateJournal";
+import { useLocalSearchParams } from "expo-router";
+import React from "react";
 
 const JournalAction = () => {
-  const { refetch } = useFetchJournal();
   const { id, title, content, createdAt, mode } = useLocalSearchParams<{
     id: string;
     title: string;
@@ -15,20 +13,19 @@ const JournalAction = () => {
     mode: string;
   }>();
 
-  const { fields, setFields, isSubmiting, handleUpdateJournal } =
-    useUpdateJournal(refetch);
+  const { isUpdating, updateJournal, fields, setFields } = useUpdateJournal();
 
   const {
-    fields: fieldsCreate,
-    setFields: setFieldsCreate,
+    fieldsCreate,
+    setFieldsCreate,
     isSubmiting: isSubmitingCreate,
-    handleAddJournal,
-  } = useAddJournal(refetch);
+    createJournal,
+  } = useAddJournal();
 
   return mode == "create" ? (
     <JournalForm
       mode="create"
-      onSubmit={handleAddJournal}
+      onSubmit={() => createJournal()}
       isSubmiting={isSubmitingCreate}
       fields={fieldsCreate}
       setFields={setFieldsCreate}
@@ -39,8 +36,8 @@ const JournalAction = () => {
       initialTitle={title}
       initialContent={content}
       createdAt={createdAt}
-      onSubmit={() => handleUpdateJournal(parseInt(id))}
-      isSubmiting={isSubmiting}
+      onSubmit={() => updateJournal({ id })}
+      isSubmiting={isUpdating}
       fields={fields}
       setFields={setFields}
     />

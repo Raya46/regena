@@ -5,7 +5,6 @@ const Loading = () => {
   return (
     <View style={styles.loadingContainer}>
       <ActivityIndicator size="large" color="#00A398" />
-      <Text style={styles.loadingText}>Loading thoughts...</Text>
     </View>
   );
 };
@@ -18,10 +17,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5F9FF",
-  },
-  loadingText: {
-    marginTop: 10,
-    color: "#00A398",
-    fontSize: 16,
   },
 });

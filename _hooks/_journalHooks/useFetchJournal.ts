@@ -1,33 +1,27 @@
 import API from "@/_constant/API";
+import { Journal } from "@/_constant/JournalType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
 
 export default function useFetchJournal() {
-  const [journals, setJournals] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  async function getJournals(): Promise<Journal[]> {
+    const token = await AsyncStorage.getItem("token");
+    const response = await axios.get<Journal[]>(`${API}/journals`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
 
-  const handleFetchJournal = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const token = await AsyncStorage.getItem("token");
-      const response = await axios.get(`${API}/journals`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = response.data;
-      setJournals(data);
-    } catch (error) {
-      setError("someting went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const {
+    data: journals = [],
+    isLoading,
+    error,
+    refetch,
+  } = useQuery<Journal[]>({
+    queryKey: ["journals"],
+    queryFn: getJournals,
+  });
 
-  useEffect(() => {
-    handleFetchJournal();
-  }, [handleFetchJournal]);
-
-  return { journals, isLoading, error, refetch: handleFetchJournal };
+  return { journals, isLoading, error, refetch };
 }

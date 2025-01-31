@@ -1,33 +1,27 @@
+import { Align } from "@/_constant/AlignType";
 import API from "@/_constant/API";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
 
 export default function useFetchAlign() {
-  const [aligns, setAligns] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  async function getAligns(): Promise<Align[]> {
+    const token = await AsyncStorage.getItem("token");
+    const response = await axios.get<Align[]>(`${API}/aligns`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }
 
-  const handleFetchAlign = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const token = await AsyncStorage.getItem("token");
-      const response = await axios.get(`${API}/aligns`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = response.data;
-      return data;
-    } catch (error) {
-      setError("someting went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const {
+    data: aligns = [],
+    isLoading,
+    error,
+    refetch,
+  } = useQuery<Align[]>({
+    queryKey: ["aligns"],
+    queryFn: getAligns,
+  });
 
-  useEffect(() => {
-    handleFetchAlign();
-  }, [handleFetchAlign]);
-
-  return { aligns, isLoading, error, refetch: handleFetchAlign };
+  return { aligns, isLoading, error, refetch };
 }

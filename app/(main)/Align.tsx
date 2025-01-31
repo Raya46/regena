@@ -1,13 +1,14 @@
 import AlignCard from "@/_components/AlignCard";
 import ErrorComp from "@/_components/Error";
 import Loading from "@/_components/Loading";
+import { Align } from "@/_constant/AlignType";
 import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
 import useUpdateAlign from "@/_hooks/_alignHooks/useUpdateAlign";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
 
-import React, { useMemo } from "react";
+import React from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -17,39 +18,16 @@ import {
 } from "react-native";
 
 const AlignPage = () => {
-  const { refetch } = useFetchAlign();
+  const { aligns, isLoading, error, refetch } = useFetchAlign();
 
-  const {
-    data,
-    isLoading,
-    error,
-    refetch: queryRefetch,
-  } = useQuery({
-    queryKey: ["aligns"],
-    queryFn: refetch,
-    initialData: [],
-  });
-
-  const { handleUpdateAlign, isSubmiting } = useUpdateAlign();
-
-  const alignCards = useMemo(() => {
-    return data?.map((item) => (
-      <AlignCard
-        key={item.id}
-        item={item}
-        iconColor={item.notification ? "#FF6347" : "#B0B0B0"}
-        updateAlign={() => handleUpdateAlign(item.id, !item.notification)}
-        isSubmiting={isSubmiting}
-      />
-    ));
-  }, [data, isSubmiting, handleUpdateAlign]);
+  const { updateAlign } = useUpdateAlign();
 
   if (isLoading) {
     return <Loading />;
   }
 
   if (error) {
-    return <ErrorComp error={error} reload={queryRefetch} />;
+    return <ErrorComp error={error} reload={refetch} />;
   }
 
   return (
@@ -68,8 +46,20 @@ const AlignPage = () => {
         </View>
 
         {/* Thought Cards */}
-        {data?.length > 0 ? (
-          alignCards
+        {aligns?.length > 0 ? (
+          aligns.map((item: Align) => (
+            <AlignCard
+              key={item.id}
+              item={item}
+              iconColor={item.notification ? "#FF6347" : "#B0B0B0"}
+              updateAlign={() =>
+                updateAlign({
+                  id: item.id,
+                  data: { notification: !item.notification },
+                })
+              }
+            />
+          ))
         ) : (
           <View style={styles.noAlignContainer}>
             <Text>No align available</Text>

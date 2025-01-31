@@ -1,53 +1,39 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useCallback } from "react";
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import Loading from "./Loading";
+import { Align } from "@/_constant/AlignType";
 
-export interface AlignValue {
-  id: string;
-  title: string;
-  content: string;
-  notification: boolean;
+interface AlignCardProps {
+  item: Align;
+  iconColor: string;
+  updateAlign: () => void;
 }
 
-const AlignCard = ({
+const AlignCard: React.FC<AlignCardProps> = ({
   item,
-  updateAlign,
   iconColor,
-  isSubmiting,
-}: {
-  item: AlignValue;
-  updateAlign: () => void;
-  iconColor: string;
-  isSubmiting: boolean;
+  updateAlign,
 }) => {
-  const handleUpdateAlign = useCallback(() => {
-    updateAlign();
-  }, [updateAlign]);
   return (
     <View style={styles.card}>
       <Text style={styles.negativeText}>{item.title}</Text>
-      {isSubmiting ? (
-        <Loading />
-      ) : (
-        <View style={styles.positiveContainer}>
+      <View style={styles.positiveContainer}>
+        <Ionicons
+          name="happy-outline"
+          size={24}
+          color="#FFD700"
+          style={styles.icon}
+        />
+        <Text style={styles.positiveText}>{item.content}</Text>
+        <TouchableOpacity onPress={updateAlign}>
           <Ionicons
-            name="happy-outline"
-            size={24}
-            color="#FFD700"
-            style={styles.icon}
+            name="notifications-outline"
+            size={20}
+            color={iconColor}
+            style={styles.notificationIcon}
           />
-          <Text style={styles.positiveText}>{item.content}</Text>
-          <TouchableOpacity onPress={handleUpdateAlign}>
-            <Ionicons
-              name="notifications-outline"
-              size={20}
-              color={iconColor}
-              style={styles.notificationIcon}
-            />
-          </TouchableOpacity>
-        </View>
-      )}
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

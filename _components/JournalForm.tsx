@@ -8,8 +8,7 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-
-let date = new Date().toLocaleString();
+import { format, parseISO } from "date-fns";
 
 // Definisikan props untuk komponen
 interface JournalFormProps {
@@ -35,13 +34,23 @@ const JournalForm: React.FC<JournalFormProps> = ({
   mode,
   initialTitle = "",
   initialContent = "",
-  createdAt = date,
+  createdAt,
   onSubmit,
   isSubmiting,
   fields,
   setFields,
 }) => {
-  // Set initial values for update mode
+  const formatCreatedAt = () => {
+    try {
+      // Jika createdAt adalah string ISO, parse dengan parseISO
+      return createdAt
+        ? format(parseISO(createdAt), "dd MMMM yyyy, HH:mm")
+        : format(new Date(), "dd MMMM yyyy, HH:mm");
+    } catch (error) {
+      console.error("Invalid date:", createdAt);
+      return format(new Date(), "dd MMMM yyyy, HH:mm");
+    }
+  };
   useEffect(() => {
     if (mode === "update") {
       setFields({
@@ -55,7 +64,7 @@ const JournalForm: React.FC<JournalFormProps> = ({
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.replace("/Journal")}>
+        <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
         <TouchableOpacity onPress={onSubmit} disabled={isSubmiting}>
@@ -66,13 +75,13 @@ const JournalForm: React.FC<JournalFormProps> = ({
       </View>
 
       {/* Date */}
-      <Text style={styles.dateText}>{createdAt}</Text>
+      <Text style={styles.dateText}>{formatCreatedAt()}</Text>
 
       {/* Title */}
       <TextInput
         style={styles.titleInput}
         placeholder="Title"
-        value={mode === "update" ? fields.title : undefined}
+        value={fields.title}
         onChangeText={(text) => setFields({ ...fields, title: text })}
       />
 
@@ -81,7 +90,7 @@ const JournalForm: React.FC<JournalFormProps> = ({
         style={styles.contentInput}
         placeholder="Start writing..."
         multiline
-        value={mode === "update" ? fields.content : undefined}
+        value={fields.content}
         onChangeText={(text) => setFields({ ...fields, content: text })}
       />
 

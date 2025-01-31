@@ -1,10 +1,11 @@
 import ErrorComp from "@/_components/Error";
 import JournalCard from "@/_components/JournalCard";
 import Loading from "@/_components/Loading";
+import { Journal } from "@/_constant/JournalType";
 import useFetchJournal from "@/_hooks/_journalHooks/useFetchJournal";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React, { useMemo } from "react";
+import React from "react";
 import {
   Image,
   ScrollView,
@@ -16,10 +17,6 @@ import {
 
 const JournalPage = () => {
   const { journals, isLoading, error, refetch } = useFetchJournal();
-
-  const journalCards = useMemo(() => {
-    return journals?.map((item) => <JournalCard item={item} key={item.id} />);
-  }, [journals]);
 
   if (isLoading) {
     return <Loading />;
@@ -86,8 +83,7 @@ const JournalPage = () => {
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Journal Content */}
-      {journals.length == 0 ? (
+      <View>
         <View style={styles.emptyJournalContainer}>
           <TouchableOpacity
             style={styles.journalInput}
@@ -107,33 +103,14 @@ const JournalPage = () => {
             </View>
           </TouchableOpacity>
         </View>
+      </View>
+      {/* Journal Content */}
+      {journals.length === 0 ? (
+        <View></View>
       ) : (
-        <View>
-          <View style={styles.emptyJournalContainer}>
-            <TouchableOpacity
-              style={styles.journalInput}
-              onPress={() =>
-                router.push({
-                  pathname: "/JournalAction",
-                  params: { mode: "create" },
-                })
-              }
-            >
-              <View style={styles.emptyJournalContent}>
-                <Ionicons
-                  name="paper-plane-outline"
-                  size={24}
-                  color="#6B7280"
-                />
-                <Text style={styles.journalText}>
-                  Tell us what's on your mind today. Writing it down helps guide
-                  you toward healing.
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          {journalCards}
-        </View>
+        journals.map((item: Journal) => (
+          <JournalCard key={item.id || "kaosdkaoskdosakd"} item={item} />
+        ))
       )}
     </ScrollView>
   );
