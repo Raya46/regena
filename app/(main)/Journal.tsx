@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -16,6 +17,10 @@ import {
 } from "react-native";
 
 const JournalPage = () => {
+  const renderItem = ({ item }: { item: Journal }) => (
+    <JournalCard item={item} />
+  );
+  const keyExtractor = (index: Journal) => index.toString();
   const { journals, isLoading, error, refetch } = useFetchJournal();
 
   if (isLoading) {
@@ -108,9 +113,12 @@ const JournalPage = () => {
       {journals.length === 0 ? (
         <View></View>
       ) : (
-        journals.map((item: Journal) => (
-          <JournalCard key={item.id || "kaosdkaoskdosakd"} item={item} />
-        ))
+        <FlatList
+          data={journals}
+          scrollEnabled={false}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+        />
       )}
     </ScrollView>
   );

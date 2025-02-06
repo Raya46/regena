@@ -3,7 +3,24 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
-const MealsCard = ({ item }: any) => {
+interface MealsCardProps {
+  item: {
+    id: string;
+    category: string;
+    title: string;
+    description: string;
+    bgColor: string;
+    detailMeals: string;
+    icon: string;
+    image: string;
+    recipe: {
+      ingredients: string[];
+      steps: string[];
+    };
+  };
+}
+
+const MealsCard = ({ item }: MealsCardProps) => {
   return (
     <View
       style={{

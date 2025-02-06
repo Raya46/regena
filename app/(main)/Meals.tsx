@@ -60,9 +60,12 @@ const MealsPage = () => {
       </View>
 
       {/* Meal List */}
-      {meals.map((item, index) => (
-        <MealsCard item={item} key={index} />
-      ))}
+      <FlatList
+        scrollEnabled={false}
+        data={meals}
+        renderItem={({ item }) => <MealsCard item={item} />}
+        keyExtractor={(index) => index.toString()}
+      />
     </ScrollView>
   );
 };

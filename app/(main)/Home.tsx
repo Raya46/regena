@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -146,9 +147,12 @@ const HomePage = () => {
             ]}
           />
         </View>
-        {meals.map((value, index) => (
-          <MealsCard item={value} key={index} />
-        ))}
+        <FlatList
+          data={meals}
+          scrollEnabled={false}
+          keyExtractor={(index) => index.toString()}
+          renderItem={({ item }) => <MealsCard item={item} />}
+        />
       </ScrollView>
     </GestureHandlerRootView>
   );

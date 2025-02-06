@@ -1,15 +1,15 @@
 import AlignCard from "@/_components/AlignCard";
 import ErrorComp from "@/_components/Error";
 import Loading from "@/_components/Loading";
-import { Align } from "@/_constant/AlignType";
 import useFetchAlign from "@/_hooks/_alignHooks/useFetchAlign";
 import useUpdateAlign from "@/_hooks/_alignHooks/useUpdateAlign";
 import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
+import { Align } from "@/_constant/AlignType";
 
 import React from "react";
 import {
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -18,6 +18,19 @@ import {
 } from "react-native";
 
 const AlignPage = () => {
+  const renderItem = ({ item }: { item: Align }) => (
+    <AlignCard
+      iconColor={item.notification ? "#FF6347" : "#B0B0B0"}
+      item={item}
+      updateAlign={() =>
+        updateAlign({
+          id: item.id,
+          data: { notification: !item.notification },
+        })
+      }
+    />
+  );
+  const keyExtractor = (index: Align) => index.toString();
   const { aligns, isLoading, error, refetch } = useFetchAlign();
 
   const { updateAlign } = useUpdateAlign();
@@ -47,19 +60,12 @@ const AlignPage = () => {
 
         {/* Thought Cards */}
         {aligns?.length > 0 ? (
-          aligns.map((item: Align) => (
-            <AlignCard
-              key={item.id}
-              item={item}
-              iconColor={item.notification ? "#FF6347" : "#B0B0B0"}
-              updateAlign={() =>
-                updateAlign({
-                  id: item.id,
-                  data: { notification: !item.notification },
-                })
-              }
-            />
-          ))
+          <FlatList
+            data={aligns}
+            scrollEnabled={false}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
+          />
         ) : (
           <View style={styles.noAlignContainer}>
             <Text>No align available</Text>
